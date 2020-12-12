@@ -1,0 +1,13 @@
+{
+  "for循环": {
+    "prefix": "mapx",
+    "body": [
+      "{items.map((item, index) => (",
+      "  <View key={index}>",
+      "    {item}",
+      "  </View>",
+      "))}"
+    ],
+    "description": "map循环"
+  }
+}

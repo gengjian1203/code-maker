@@ -1,51 +1,114 @@
 {
   "name": "code-maker",
-	"displayName": "Code Maker",
-	"description": "代码辅助工具",
-	"version": "0.0.1",
-	"engines": {
-		"vscode": "^1.52.0"
-	},
-	"categories": [
-		"Other"
-	],
-	"activationEvents": [
-        "onCommand:code-maker.helloWorld"
-	],
-	"main": "./dist/extension.js",
-	"contributes": {
-		"commands": [
-			{
-				"command": "code-maker.helloWorld",
-				"title": "Hello World"
-			}
-		]
-	},
-	"scripts": {
-		"vscode:prepublish": "npm run package",
-		"compile": "webpack --devtool nosources-source-map --config ./build/node-extension.webpack.config.js",
-		"watch": "webpack --watch --devtool nosources-source-map --info-verbosity verbose --config ./build/node-extension.webpack.config.js",
-		"package": "webpack --mode production --config ./build/node-extension.webpack.config.js",
-		"test-compile": "tsc -p ./",
-		"test-watch": "tsc -watch -p ./",
-		"pretest": "npm run test-compile && npm run lint",
-		"lint": "eslint src --ext ts",
-		"test": "node ./out/test/runTest.js"
-	},
-	"devDependencies": {
-		"@types/vscode": "^1.52.0",
-		"@types/glob": "^7.1.3",
-		"@types/mocha": "^8.0.0",
-		"@types/node": "^12.11.7",
-		"eslint": "^7.9.0",
-		"@typescript-eslint/eslint-plugin": "^4.1.1",
-		"@typescript-eslint/parser": "^4.1.1",
-		"glob": "^7.1.6",
-		"mocha": "^8.1.3",
-		"typescript": "^4.0.2",
-		"vscode-test": "^1.4.0",
-		"ts-loader": "^8.0.3",
-		"webpack": "^4.44.1",
-		"webpack-cli": "^3.3.12"
-	}
+  "displayName": "Code Maker",
+  "description": "代码助手",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.51.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:code-maker.taroCreatePage",
+    "onCommand:code-maker.taroCreateComponent",
+    "onCommand:code-maker.vsCreatePage",
+    "onCommand:code-maker.vsCreateComponent"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "code-maker.taroCreateComponent",
+        "title": "创建Taro组件模板"
+      },
+      {
+        "command": "code-maker.taroCreatePage",
+        "title": "创建Taro页面模板"
+      },
+      {
+        "command": "code-maker.vsCreateComponent",
+        "title": "创建VSCode组件模板"
+      },
+      {
+        "command": "code-maker.vsCreatePage",
+        "title": "创建VSCode页面模板"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "code-maker.taroCreateComponent",
+          "group": "navigation",
+          "when": "config.code-maker.taro.enabled"
+        },
+        {
+          "command": "code-maker.taroCreatePage",
+          "group": "navigation",
+          "when": "config.code-maker.taro.enabled"
+        },
+        {
+          "command": "code-maker.vsCreateComponent",
+          "group": "navigation",
+          "when": "config.code-maker.vscode.enabled"
+        },
+        {
+          "command": "code-maker.vsCreatePage",
+          "group": "navigation",
+          "when": "config.code-maker.vscode.enabled"
+        }
+      ]
+    },
+    "configuration": [
+      {
+        "type": "object",
+        "title": "Code Maker",
+        "properties": {
+          "code-maker.taro.enabled": {
+            "type": "boolean",
+            "default": false,
+            "description": "开启Taro代码助手"
+          },
+          "code-maker.vscode.enabled": {
+            "type": "boolean",
+            "default": true,
+            "description": "开启VSCode插件代码助手"
+          }
+        }
+      }
+    ],
+    "snippets": [
+      {
+        "language": "typescriptreact",
+        "path": "./src/snippets/mapx.json"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack --devtool nosources-source-map --config ./build/node-extension.webpack.config.js",
+    "watch": "webpack --watch --devtool nosources-source-map --info-verbosity verbose --config ./build/node-extension.webpack.config.js",
+    "package": "webpack --mode production --config ./build/node-extension.webpack.config.js",
+    "test-compile": "tsc -p ./",
+    "test-watch": "tsc -watch -p ./",
+    "pretest": "npm run test-compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.51.0",
+    "@types/glob": "^7.1.3",
+    "@types/mocha": "^8.0.0",
+    "@types/node": "^12.11.7",
+    "eslint": "^7.9.0",
+    "@typescript-eslint/eslint-plugin": "^4.1.1",
+    "@typescript-eslint/parser": "^4.1.1",
+    "glob": "^7.1.6",
+    "mocha": "^8.1.3",
+    "typescript": "^4.0.2",
+    "vscode-test": "^1.4.0",
+    "ts-loader": "^8.0.3",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  }
 }
