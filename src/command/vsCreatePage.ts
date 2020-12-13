@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
 
-export default () => {
-  return vscode.commands.registerCommand("code-maker.vsCreatePage", () => {
+export default (context: any) => {
+  return vscode.commands.registerCommand("code-maker.vsCreatePage", (res) => {
     // The code you place here will be executed every time your command is executed
 
     // Display a message box to the user
