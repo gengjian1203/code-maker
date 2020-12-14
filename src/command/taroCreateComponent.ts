@@ -1,20 +1,23 @@
 import * as vscode from "vscode";
 import { copyFile } from "../utils";
 
-const handleCopyFileComplete = (pathTarget: string) => {
+const handleCopyFileSuccess = (pathDist: string, index: number) => {
+  if (Boolean(index)) {
+    return;
+  }
   vscode.workspace
-    .openTextDocument(pathTarget)
+    .openTextDocument(pathDist)
     .then(
       (doc) => {
         // 在VSCode编辑窗口展示读取到的文本
         vscode.window.showTextDocument(doc);
       },
       (err) => {
-        console.log(`Open ${pathTarget} error, ${err}.`);
+        console.log(`Open ${pathDist} error, ${err}.`);
       }
     )
     .then(undefined, (err) => {
-      console.log(`Open ${pathTarget} error, ${err}.`);
+      console.log(`Open ${pathDist} error, ${err}.`);
     });
 };
 
@@ -34,16 +37,18 @@ export default (context: any) => {
           return;
         }
 
-        const fileExts = ["less", "tsx"];
-        for (let item of fileExts) {
-          const pathTarget: string = `${path}/${value}/index.${item}`;
-          const pathTemplate: string = `${context.extensionPath}/src/template/TaroComponent.${item}.tmp`;
-          copyFile(
-            pathTarget,
-            pathTemplate,
-            handleCopyFileComplete(pathTarget)
-          );
-        }
+        const fileExts = ["tsx", "less"];
+        fileExts.map((item, index) => {
+          const param = {
+            pathDist: `${path}/${value}/index.${item}`,
+            pathSource: `${context.extensionPath}/src/template/TaroComponent.${item}.tmp`,
+            fileReg: /TaroComponent/g,
+            fileName: value,
+          };
+          copyFile(param, () => {
+            handleCopyFileSuccess(param.pathDist, index);
+          });
+        });
       });
     }
   );
