@@ -16,7 +16,7 @@ const copyFile = (param: ICopyFileParam, complete?: any) => {
 
   // 读取文件内容
   let template = fs.readFileSync(param.pathSource, "utf-8");
-  console.log("copyFile", template);
+  // console.log("copyFile", template);
   template = template.replace(param.fileReg, param.fileName);
 
   // 保护写入文件时有对应的路径支持

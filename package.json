@@ -82,10 +82,7 @@
         "language": "typescriptreact",
         "path": "./src/snippets/mapx.json"
       }
-    ],
-    "template": {
-      "customData": "./src/template"
-    }
+    ]
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
