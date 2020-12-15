@@ -3,12 +3,12 @@ import { View } from '@tarojs/components'
 
 import './index.less'
 
-interface ITaroComponentParam {
+interface ITaroQmComponentParam {
 	title?: string
 	onTitleClick?: any
 }
 
-export default function TaroComponent(props: ITaroComponentParam) {
+export default function TaroQmComponent(props: ITaroQmComponentParam) {
 	const {
 		title = '', // 标题
 		onTitleClick = () => {}, // 点击标题回调
@@ -31,12 +31,12 @@ export default function TaroComponent(props: ITaroComponentParam) {
 	}
 
 	return (
-		<View className='taro-component-wrap'>
-			<View className='taro-component-title' onClick={handleTitleClick}>
+		<View className='taro-qm-component-wrap'>
+			<View className='taro-qm-component-title' onClick={handleTitleClick}>
 				{title}
 			</View>
-			<View className='taro-component-content'>
-				<View className='taro-component-value' onClick={handleValueClick}>
+			<View className='taro-qm-component-content'>
+				<View className='taro-qm-component-value' onClick={handleValueClick}>
 					{`${value}-${value}-${value}`}
 				</View>
 			</View>

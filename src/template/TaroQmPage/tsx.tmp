@@ -1,0 +1,58 @@
+import React, { useEffect, useState } from 'react'
+import Taro, { useRouter } from '@tarojs/taro'
+import { View } from '@tarojs/components'
+import UIBase from '@ui-base'
+import KITBase from '@kit-base'
+import PageContainer from '@biz-base/page-container'
+import ShareContainer from '@biz-base/share-container'
+
+import './index.less'
+
+export default function TaroQmPage() {
+	const { QMButton } = UIBase
+	const { Config } = KITBase
+	const {
+		path,
+		params: { id = '' },
+	} = useRouter()
+
+	const [isLoadComplete, setLoadComplete] = useState<boolean>(false) // 是否加载完毕
+	const [value, setValue] = useState<number>(0)
+
+	useEffect(() => {
+		Taro.hideShareMenu()
+		setLoadComplete(true)
+	}, [])
+
+	// 点击按钮
+	const handleButtonClick = () => {
+		setValue(Math.random())
+	}
+
+	return (
+		<PageContainer
+			nav={{
+				border: true,
+				title: id,
+				fixed: true,
+			}}
+		>
+			<ShareContainer>
+				{isLoadComplete && (
+					<View className='taro-qm-page-wrap'>
+						<View className='taro-qm-page-name'>
+							{Config.EXT_CONFIG.appName}
+						</View>
+						<QMButton
+							color='var(--primary-color, #ffa900)'
+							customClass='taro-qm-page-btn'
+							onClick={handleButtonClick}
+						>
+							{value}
+						</QMButton>
+					</View>
+				)}
+			</ShareContainer>
+		</PageContainer>
+	)
+}

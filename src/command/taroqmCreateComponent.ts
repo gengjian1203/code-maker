@@ -7,11 +7,11 @@ const arrFileExt = [
     process: [
       {
         type: "name",
-        reg: /TaroComponent/g,
+        reg: /TaroQmComponent/g,
       },
       {
         type: "class",
-        reg: /taro-component/g,
+        reg: /taro-qm-component/g,
       },
     ],
   },
@@ -20,7 +20,7 @@ const arrFileExt = [
     process: [
       {
         type: "class",
-        reg: /taro-component/g,
+        reg: /taro-qm-component/g,
       },
     ],
   },
@@ -95,24 +95,22 @@ const handleCopyFileSuccess = (pathDist: string, index: number) => {
 
 export default (context: any) => {
   return vscode.commands.registerCommand(
-    "code-maker.taroCreateComponent",
+    "code-maker.taroqmCreateComponent",
     (res) => {
       const path = res.fsPath;
       const options = {
-        prompt: "请输入新建组件的名称: ",
+        prompt: "请输入新建Taro(QM)组件的名称: ",
         placeHolder: "组件名",
       };
 
       vscode.window.showInputBox(options).then((value) => {
-        console.log("taroCreateComponent", value);
         if (!value) {
           return;
         }
-
         arrFileExt.map((item, index) => {
           copyFile({
             pathDist: `${path}/${value}/index.${item.ext}`,
-            pathSource: `${context.extensionPath}/src/template/TaroComponent/${item.ext}.tmp`,
+            pathSource: `${context.extensionPath}/src/template/TaroQmComponent/${item.ext}.tmp`,
             dealTemplate: (template: string) => {
               return handleDealTemplate(template, value, item);
             },

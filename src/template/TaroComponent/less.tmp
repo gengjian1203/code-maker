@@ -1,8 +1,0 @@
-.taro-component-wrap {
-	.taro-component-title {
-	}
-	.taro-component-content {
-		.taro-component-value {
-		}
-	}
-}

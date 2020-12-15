@@ -10,8 +10,8 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:code-maker.taroCreatePage",
-    "onCommand:code-maker.taroCreateComponent",
+    "onCommand:code-maker.taroqmCreatePage",
+    "onCommand:code-maker.taroqmCreateComponent",
     "onCommand:code-maker.vsCreatePage",
     "onCommand:code-maker.vsCreateComponent"
   ],
@@ -19,12 +19,12 @@
   "contributes": {
     "commands": [
       {
-        "command": "code-maker.taroCreateComponent",
-        "title": "创建Taro组件模板"
+        "command": "code-maker.taroqmCreateComponent",
+        "title": "创建Taro(QM)组件模板"
       },
       {
-        "command": "code-maker.taroCreatePage",
-        "title": "创建Taro页面模板"
+        "command": "code-maker.taroqmCreatePage",
+        "title": "创建Taro(QM)页面模板"
       },
       {
         "command": "code-maker.vsCreateComponent",
@@ -38,14 +38,14 @@
     "menus": {
       "explorer/context": [
         {
-          "command": "code-maker.taroCreateComponent",
+          "command": "code-maker.taroqmCreateComponent",
           "group": "navigation",
-          "when": "config.code-maker.taro.enabled"
+          "when": "config.code-maker.taroqm.enabled"
         },
         {
-          "command": "code-maker.taroCreatePage",
+          "command": "code-maker.taroqmCreatePage",
           "group": "navigation",
-          "when": "config.code-maker.taro.enabled"
+          "when": "config.code-maker.taroqm.enabled"
         },
         {
           "command": "code-maker.vsCreateComponent",
@@ -64,14 +64,14 @@
         "type": "object",
         "title": "Code Maker",
         "properties": {
-          "code-maker.taro.enabled": {
+          "code-maker.taroqm.enabled": {
             "type": "boolean",
-            "default": false,
-            "description": "开启Taro代码助手"
+            "default": true,
+            "description": "开启Taro(QM)代码助手"
           },
           "code-maker.vscode.enabled": {
             "type": "boolean",
-            "default": true,
+            "default": false,
             "description": "开启VSCode插件代码助手"
           }
         }
