@@ -11,12 +11,16 @@
   ],
   "activationEvents": [
     "onCommand:code-maker.taroqmCreatePage",
-    "onCommand:code-maker.taroqmCreateComponent",
-    "onCommand:code-maker.vsCreatePage",
-    "onCommand:code-maker.vsCreateComponent"
+    "onCommand:code-maker.taroqmCreateComponent"
   ],
   "main": "./dist/extension.js",
   "contributes": {
+    "snippets": [
+      {
+        "language": "typescriptreact",
+        "path": "./src/snippets/mapx.json"
+      }
+    ],
     "commands": [
       {
         "command": "code-maker.taroqmCreateComponent",
@@ -25,14 +29,6 @@
       {
         "command": "code-maker.taroqmCreatePage",
         "title": "创建Taro(QM)页面模板"
-      },
-      {
-        "command": "code-maker.vsCreateComponent",
-        "title": "创建VSCode组件模板"
-      },
-      {
-        "command": "code-maker.vsCreatePage",
-        "title": "创建VSCode页面模板"
       }
     ],
     "menus": {
@@ -46,16 +42,6 @@
           "command": "code-maker.taroqmCreatePage",
           "group": "navigation",
           "when": "config.code-maker.taroqm.enabled"
-        },
-        {
-          "command": "code-maker.vsCreateComponent",
-          "group": "navigation",
-          "when": "config.code-maker.vscode.enabled"
-        },
-        {
-          "command": "code-maker.vsCreatePage",
-          "group": "navigation",
-          "when": "config.code-maker.vscode.enabled"
         }
       ]
     },
@@ -67,20 +53,9 @@
           "code-maker.taroqm.enabled": {
             "type": "boolean",
             "default": true,
-            "description": "开启Taro(QM)代码助手"
-          },
-          "code-maker.vscode.enabled": {
-            "type": "boolean",
-            "default": false,
-            "description": "开启VSCode插件代码助手"
+            "markdownDescription": "开启`Taro(QM)`代码助手。"
           }
         }
-      }
-    ],
-    "snippets": [
-      {
-        "language": "typescriptreact",
-        "path": "./src/snippets/mapx.json"
       }
     ]
   },
@@ -110,5 +85,8 @@
     "ts-loader": "^8.0.3",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12"
+  },
+  "dependencies": {
+    "inquirer": "^7.3.3"
   }
 }
