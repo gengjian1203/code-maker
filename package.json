@@ -1,17 +1,29 @@
 {
   "name": "code-maker",
-  "displayName": "Code Maker",
-  "description": "代码助手",
-  "version": "0.0.1",
+  "displayName": "代码助手",
+  "description": "一款可以工程化生成模板代码片段的VSCode插件",
+  "keywords": [
+    "code",
+    "maker",
+    "helper",
+    "plugin",
+    "taro"
+  ],
+  "version": "1.0.0",
+  "publisher": "gengjian1203",
+  "icon": "./images/icon.png",
   "engines": {
-    "vscode": "^1.51.0"
+    "vscode": "^1.27.0"
   },
   "categories": [
     "Other"
   ],
+  "git": "https://github.com/gengjian1203/code-maker",
   "activationEvents": [
-    "onCommand:code-maker.taroqmCreatePage",
-    "onCommand:code-maker.taroqmCreateComponent"
+    "onCommand:code-maker.taroqm.CreateComponent",
+    "onCommand:code-maker.taroqm.CreatePage",
+    "onCommand:code-maker.taroqm.EditComponent",
+    "onCommand:code-maker.taroqm.EditPage"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -23,23 +35,31 @@
     ],
     "commands": [
       {
-        "command": "code-maker.taroqmCreateComponent",
+        "command": "code-maker.taroqm.CreateComponent",
         "title": "创建Taro(QM)组件模板"
       },
       {
-        "command": "code-maker.taroqmCreatePage",
+        "command": "code-maker.taroqm.CreatePage",
         "title": "创建Taro(QM)页面模板"
+      },
+      {
+        "command": "code-maker.taroqm.EditComponent",
+        "title": "编辑Taro(QM)组件模板"
+      },
+      {
+        "command": "code-maker.taroqm.EditPage",
+        "title": "编辑Taro(QM)页面模板"
       }
     ],
     "menus": {
       "explorer/context": [
         {
-          "command": "code-maker.taroqmCreateComponent",
+          "command": "code-maker.taroqm.CreateComponent",
           "group": "navigation",
           "when": "config.code-maker.taroqm.enabled"
         },
         {
-          "command": "code-maker.taroqmCreatePage",
+          "command": "code-maker.taroqm.CreatePage",
           "group": "navigation",
           "when": "config.code-maker.taroqm.enabled"
         }

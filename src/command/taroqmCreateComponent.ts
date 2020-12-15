@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { copyFile } from "../utils";
+import { copyFile, openFile } from "../utils";
 
 const arrFileExt = [
   {
@@ -78,24 +78,14 @@ const handleCopyFileSuccess = (pathDist: string, index: number) => {
   if (Boolean(index)) {
     return;
   }
-  vscode.workspace
-    .openTextDocument(pathDist)
-    .then(
-      (doc) => {
-        vscode.window.showTextDocument(doc);
-      },
-      (err) => {
-        console.log(`Open ${pathDist} error, ${err}.`);
-      }
-    )
-    .then(undefined, (err) => {
-      console.log(`Open ${pathDist} error, ${err}.`);
-    });
+  openFile({
+    path: pathDist,
+  });
 };
 
 export default (context: any) => {
   return vscode.commands.registerCommand(
-    "code-maker.taroqmCreateComponent",
+    "code-maker.taroqm.CreateComponent",
     (res) => {
       const path = res.fsPath;
       const options = {
