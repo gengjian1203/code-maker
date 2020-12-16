@@ -44,11 +44,11 @@ const promptList = [
     type: "input",
     message: "请输入一个新建命令的名称：",
     name: "title",
-    default: "VSCode插件命令",
+    default: "VSCode插件自定义命令",
   },
   {
     type: "checkbox",
-    message: "在以下位置是否绑定对应菜单的交互？",
+    message: "以下位置是否绑定对应菜单的交互？",
     name: "menus",
     choices: arrMenusList.map((item) => {
       return { name: item.name };
@@ -81,7 +81,7 @@ const insertPackageEvents = (param) => {
  */
 const insertPackageCommands = (param) => {
   packageInfo.contributes.commands.push({
-    command: `onCommand:code-maker.${param.name}`,
+    command: `code-maker.${param.name}`,
     title: param.title,
   });
   packageInfo.contributes.commands.sort((commandA, commandB) => {
@@ -96,17 +96,19 @@ const insertPackageCommands = (param) => {
 const insertPackageMenus = (param) => {
   for (let menu of param.menus) {
     const nIndex = arrMenusList.findIndex((item) => {
-      item.name === menu;
+      return item.name === menu;
     });
     if (nIndex >= 0) {
-      packageInfo.menus[arrMenusList[nIndex].code].push({
-        command: `onCommand:code-maker.${param.name}`,
+      packageInfo.contributes.menus[arrMenusList[nIndex].code].push({
+        command: `code-maker.${param.name}`,
         group: "navigation",
         when: "true",
       });
-      packageInfo.menus[arrMenusList[nIndex].code].sort((menuA, menuB) => {
-        return menuA.command > menuB.command;
-      });
+      packageInfo.contributes.menus[arrMenusList[nIndex].code].sort(
+        (menuA, menuB) => {
+          return menuA.command > menuB.command;
+        }
+      );
     }
   }
 };
@@ -123,16 +125,34 @@ const insertPackage = (param) => {
     console.log("insertPackage", packageInfo);
     // 写入文件内容
     fs.writeFileSync(pathPackage, JSON.stringify(packageInfo, null, 2));
+    fs.appendFileSync(pathPackage, "\n");
   }
 };
 
 /**
- * 插入索引命令
+ * 插入索引文件
  * @param {*}} param
  */
 const insertCommandIndex = (param) => {
-  if (packageInfo) {
+  const name = param.name.replace(/\./g, "");
+  // 模板文件是否存在
+  if (!fs.existsSync(pathCommandIndex)) {
+    return;
   }
+
+  // 读取文件内容
+  const strCommands = fs.readFileSync(pathCommandIndex, "utf-8");
+  const arrCommands = strCommands.split("\n").filter((item) => {
+    return item !== "";
+  });
+  arrCommands.push(`export { default as ${name} } from "./${name}";`);
+  arrCommands.sort((commandA, commandB) => {
+    return commandA > commandB;
+  });
+
+  // 写入文件内容
+  fs.writeFileSync(pathCommandIndex, arrCommands.join("\n"));
+  fs.appendFileSync(pathCommandIndex, "\n");
 };
 
 /**
@@ -142,8 +162,6 @@ const insertCommandIndex = (param) => {
 const copyTemplate = (param) => {
   const name = param.name.replace(/\./g, "");
   const pathDist = path.resolve(__dirname, "src", "command", `${name}.ts`);
-  console.log("copyTemplate", param.name, name, pathDist);
-
   // 模板文件是否存在
   if (!fs.existsSync(pathTemplate)) {
     return;
@@ -161,6 +179,8 @@ const copyTemplate = (param) => {
 
   // 写入文件内容
   fs.writeFileSync(pathDist, template);
+
+  process.stdout.write(`${param.name}命令创建完毕！\n`);
 };
 
 /**
@@ -168,10 +188,11 @@ const copyTemplate = (param) => {
  * @param
  */
 const createCommand = (param) => {
-  // console.log("createCommand1", param);
-  // console.log("createCommand2", packageInfo);
+  // 1. 插入注册文件
   insertPackage(param);
+  // 2. 插入索引文件
   insertCommandIndex(param);
+  // 3. 拷贝模板
   copyTemplate(param);
 };
 
