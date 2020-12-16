@@ -66,7 +66,10 @@
           "group": "navigation",
           "when": "config.code-maker.taroqm.enabled"
         }
-      ]
+      ],
+      "editor/context": [],
+      "editor/title": [],
+      "editor/title/context": []
     },
     "configuration": [
       {

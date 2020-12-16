@@ -32,13 +32,8 @@ const arrFileExt = [
  * @param fileName 文件名
  * @param fileExt 文件拓展类型
  */
-const handleDealTemplate = (
-  template: string,
-  fileName: string,
-  fileExt: any
-) => {
+const dealTemplate = (template: string, fileName: string, fileExt: any) => {
   let result = template;
-  // console.log("handleDealTemplate", template, fileExt);
   let name = fileName.trim();
   if (name) {
     fileExt.process.map((item: any) => {
@@ -62,7 +57,6 @@ const handleDealTemplate = (
         default:
           break;
       }
-      // console.log("handleDealTemplate", item, name);
       result = result.replace(item.reg, name);
     });
   }
@@ -74,7 +68,7 @@ const handleDealTemplate = (
  * @param pathDist
  * @param index
  */
-const handleCopyFileSuccess = (pathDist: string, index: number) => {
+const copyFileSuccess = (pathDist: string, index: number) => {
   if (Boolean(index)) {
     return;
   }
@@ -102,10 +96,10 @@ export default (context: any) => {
             pathDist: `${path}/${value}/index.${item.ext}`,
             pathSource: `${context.extensionPath}/template/TaroQmComponent/${item.ext}.tmp`,
             dealTemplate: (template: string) => {
-              return handleDealTemplate(template, value, item);
+              return dealTemplate(template, value, item);
             },
             success: (param) => {
-              handleCopyFileSuccess(param.pathDist, index);
+              copyFileSuccess(param.pathDist, index);
             },
           });
         });
