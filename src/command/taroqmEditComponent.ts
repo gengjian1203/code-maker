@@ -7,7 +7,7 @@ export default (context: any) => {
     (res) => {
       // The code you place here will be executed every time your command is executed
       openFile({
-        path: `${context.extensionPath}/src/template/TaroQmComponent/tsx.tmp`,
+        path: `${context.extensionPath}/template/TaroQmComponent/tsx.tmp`,
       });
     }
   );

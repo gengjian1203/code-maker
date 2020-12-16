@@ -100,7 +100,7 @@ export default (context: any) => {
         arrFileExt.map((item, index) => {
           copyFile({
             pathDist: `${path}/${value}/index.${item.ext}`,
-            pathSource: `${context.extensionPath}/src/template/TaroQmComponent/${item.ext}.tmp`,
+            pathSource: `${context.extensionPath}/template/TaroQmComponent/${item.ext}.tmp`,
             dealTemplate: (template: string) => {
               return handleDealTemplate(template, value, item);
             },
