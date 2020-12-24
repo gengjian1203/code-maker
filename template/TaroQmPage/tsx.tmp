@@ -1,16 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import Taro, { useRouter } from '@tarojs/taro'
 import { View } from '@tarojs/components'
-import UIBase from '@ui-base'
-import KITBase from '@kit-base'
-import PageContainer from '@biz-base/page-container'
-import ShareContainer from '@biz-base/share-container'
 
 import './index.less'
 
 export default function TaroQmPage() {
-	const { QMButton } = UIBase
-	const { Config } = KITBase
 	const {
 		path,
 		params: { id = '' },

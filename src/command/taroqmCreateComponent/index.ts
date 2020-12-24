@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { copyFile, openFile } from "../utils";
+import { copyFile, openFile } from "../../utils";
 
 const arrFileExt = [
   {
@@ -7,11 +7,11 @@ const arrFileExt = [
     process: [
       {
         type: "name",
-        reg: /TaroQmPage/g,
+        reg: /TaroQmComponent/g,
       },
       {
         type: "class",
-        reg: /taro-qm-page/g,
+        reg: /taro-qm-component/g,
       },
     ],
   },
@@ -20,7 +20,7 @@ const arrFileExt = [
     process: [
       {
         type: "class",
-        reg: /taro-qm-page/g,
+        reg: /taro-qm-component/g,
       },
     ],
   },
@@ -79,12 +79,12 @@ const copyFileSuccess = (pathDist: string, index: number) => {
 
 export default (context: any) => {
   return vscode.commands.registerCommand(
-    "code-maker.taroqm.CreatePage",
+    "code-maker.taroqm.CreateComponent",
     (res) => {
       const path = res.fsPath;
       const options = {
-        prompt: "请输入新建Taro(QM)页面的名称: ",
-        placeHolder: "页面名",
+        prompt: "请输入新建Taro(QM)组件的名称: ",
+        placeHolder: "组件名",
       };
 
       vscode.window.showInputBox(options).then((value) => {
@@ -94,7 +94,7 @@ export default (context: any) => {
         arrFileExt.map((item, index) => {
           copyFile({
             pathDist: `${path}/${value}/index.${item.ext}`,
-            pathSource: `${context.extensionPath}/template/TaroQmPage/${item.ext}.tmp`,
+            pathSource: `${context.extensionPath}/template/TaroQmComponent/${item.ext}.tmp`,
             dealTemplate: (template: string) => {
               return dealTemplate(template, value, item);
             },

@@ -161,7 +161,7 @@ const insertCommandIndex = (param) => {
  */
 const copyTemplate = (param) => {
   const name = param.name.replace(/\./g, "");
-  const pathDist = path.resolve(__dirname, "src", "command", `${name}.ts`);
+  const pathDist = path.resolve(__dirname, "src", "command", name, "index.ts");
   // 模板文件是否存在
   if (!fs.existsSync(pathTemplate)) {
     return;

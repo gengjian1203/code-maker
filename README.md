@@ -12,13 +12,19 @@
 3.  支持命令“编辑 Taro(QM)组件模板”
 4.  支持命令“编辑 Taro(QM)页面模板”
 
-### 附件
+### 开发插件附录
 
 > 自动化生成 VSCode 插件命令的 CLI 工具。
 > 以便提升插件的开发效率。
 
 ```bash
 node ./cli.js
+```
+
+> 输出项目结构
+
+```bash
+tree -L 3 -I "node_modules|dist|build|out" > tree.md
 ```
 
 **Enjoy!**

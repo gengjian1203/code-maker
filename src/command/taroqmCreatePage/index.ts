@@ -1,5 +1,8 @@
 import * as vscode from "vscode";
-import { copyFile, openFile } from "../utils";
+import { copyFile, openFile } from "../../utils";
+import { dealRouterFile } from "./utils";
+
+const fs = require("fs");
 
 const arrFileExt = [
   {
@@ -7,11 +10,11 @@ const arrFileExt = [
     process: [
       {
         type: "name",
-        reg: /TaroQmComponent/g,
+        reg: /TaroQmPage/g,
       },
       {
         type: "class",
-        reg: /taro-qm-component/g,
+        reg: /taro-qm-page/g,
       },
     ],
   },
@@ -20,7 +23,7 @@ const arrFileExt = [
     process: [
       {
         type: "class",
-        reg: /taro-qm-component/g,
+        reg: /taro-qm-page/g,
       },
     ],
   },
@@ -77,24 +80,47 @@ const copyFileSuccess = (pathDist: string, index: number) => {
   });
 };
 
+/**
+ * 注册router
+ * @param path 供参考的路径
+ */
+const registerRouter = (path: string) => {
+  // const pathRouter = `${path}`;
+  const nIndex = path.indexOf("src/pages");
+  if (nIndex >= 0) {
+    const pathRouter =
+      `${path.substring(0, nIndex)}` + `builder/default/router/sub.js`;
+    // router文件是否存在
+    if (fs.existsSync(pathRouter)) {
+      // 读取文件内容
+      let fileRouter = fs.readFileSync(pathRouter);
+      // 处理路由文本
+      const strRouterStream = dealRouterFile(fileRouter.toString());
+      // 写入文件内容
+      fs.writeFileSync(pathRouter, strRouterStream);
+    }
+  }
+};
+
 export default (context: any) => {
   return vscode.commands.registerCommand(
-    "code-maker.taroqm.CreateComponent",
+    "code-maker.taroqm.CreatePage",
     (res) => {
       const path = res.fsPath;
       const options = {
-        prompt: "请输入新建Taro(QM)组件的名称: ",
-        placeHolder: "组件名",
+        prompt: "请输入新建Taro(QM)页面的名称: ",
+        placeHolder: "页面名",
       };
 
       vscode.window.showInputBox(options).then((value) => {
         if (!value) {
           return;
         }
+        // 拷贝模板文件
         arrFileExt.map((item, index) => {
           copyFile({
             pathDist: `${path}/${value}/index.${item.ext}`,
-            pathSource: `${context.extensionPath}/template/TaroQmComponent/${item.ext}.tmp`,
+            pathSource: `${context.extensionPath}/template/TaroQmPage/${item.ext}.tmp`,
             dealTemplate: (template: string) => {
               return dealTemplate(template, value, item);
             },
@@ -103,6 +129,8 @@ export default (context: any) => {
             },
           });
         });
+        // // 注册router
+        registerRouter(path);
       });
     }
   );
