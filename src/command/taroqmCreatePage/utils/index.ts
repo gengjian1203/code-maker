@@ -1,3 +1,5 @@
+import * as vscode from "vscode";
+
 /**
  * 修整路由文件的其他内容
  * @param fileRouter
@@ -69,12 +71,6 @@ const getArrayValue = (value: string) => {
       arrResult.push(objResult);
     }
   }
-  // 对子包内的页面排序
-  // arrResult.sort((objResultA, objResultB) => {
-  //   const strValueA = String(objResultA.value);
-  //   const strValueB = String(objResultB.value);
-  //   return strValueA.localeCompare(strValueB);
-  // });
 
   return arrResult;
 };
@@ -147,41 +143,177 @@ const getItemValueFromKey = (source: string, key: string) => {
 };
 
 /**
+ * 解析出来的路由Name字段，改变为字符流
+ * @param name
+ */
+const transformName = (name: { value: string; notes: string }) => {
+  return (
+    `\t\t` +
+    `name: '${name.value}',` +
+    `${name.notes && ` // ${name.notes}`}` +
+    `\n`
+  );
+};
+
+/**
+ * 解析出来的路由Root字段，改变为字符流
+ * @param root
+ */
+const transformRoot = (root: { value: string; notes: string }) => {
+  return (
+    `\t\t` +
+    `root: '${root.value}',` +
+    `${root.notes && ` // ${root.notes}`}` +
+    `\n`
+  );
+};
+
+/**
+ * 解析出来的路由Pages字段，改变为字符流
+ * @param value
+ */
+const transformPages = (pages: {
+  value: Array<{ value: string; notes: string }>;
+  notes: string;
+}) => {
+  const printWidth = 80;
+  let result = "";
+  let isMultiline = false;
+  let nValueLength = 12 + 2; // '\t\tpages: ['.length + '],'.length
+
+  nValueLength += pages.value.length >= 1 ? (pages.value.length - 1) * 2 : 0; // ', '.length
+  for (let itemPageValue of pages.value) {
+    nValueLength += itemPageValue.value.length + 2; // "''".length
+    if (itemPageValue.notes) {
+      isMultiline = true;
+      break;
+    }
+  }
+  if (nValueLength >= 80) {
+    isMultiline = true;
+  }
+
+  // 字符拼接
+  result += `\t\t` + `pages: [` + `${isMultiline ? "\n" : ""}`;
+  for (let index = 0; index < pages.value.length; index++) {
+    const itemPageValue = pages.value[index];
+    result +=
+      `${isMultiline ? "\t\t\t" : ""}` +
+      `'${itemPageValue.value}'` +
+      `${isMultiline || index !== pages.value.length - 1 ? "," : ""}` +
+      `${
+        (isMultiline && itemPageValue.notes) ||
+        (!isMultiline && index !== pages.value.length - 1)
+          ? " "
+          : ""
+      }` +
+      `${itemPageValue.notes && `// ${itemPageValue.notes}`}` +
+      `${isMultiline ? "\n" : ""}`;
+  }
+  result +=
+    `${isMultiline ? "\t\t" : ""}` +
+    `],` +
+    `${pages.notes && ` // ${pages.notes}`}` +
+    `\n`;
+
+  return result;
+};
+
+/**
+ * 新增页面路由
+ * @param path 文件路径
+ * @param pageName 新增页面名称
+ * @param pageNotes 新增页面注释
+ * @param arrRouter
+ */
+const addArrRouter = (
+  arrRouter: Array<any>,
+  path: string,
+  pageName: string,
+  pageNotes?: string
+) => {
+  // console.log("addArrRouter0", path, pageName, pageNotes);
+  // console.log("addArrRouter1", arrRouter);
+  const strSign = "src/pages/";
+  const strFullPath = `${path}/${pageName}/index`;
+  const nRootStart = strFullPath.indexOf(strSign) + strSign.length;
+  const nRootEnd = strFullPath.indexOf("/", nRootStart);
+  const strRoot = `pages/${strFullPath.substring(nRootStart, nRootEnd)}`;
+  const strPage = strFullPath.substring(nRootEnd + 1);
+
+  // console.log("addArrRouter", strRoot, strPage);
+  const nIndex = arrRouter.findIndex((item) => {
+    return item.root.value === strRoot;
+  });
+  if (nIndex >= 0) {
+    arrRouter[nIndex].pages.value.push({
+      value: strPage,
+      notes: pageNotes,
+    });
+  } else {
+    arrRouter.push({
+      root: {
+        value: strRoot,
+        notes: "",
+      },
+      pages: {
+        value: [
+          {
+            value: strPage,
+            notes: pageNotes,
+          },
+        ],
+        notes: "",
+      },
+    });
+  }
+};
+
+/**
+ * 对路由对象进行字母排序
+ * @param arrRouter
+ */
+const sortArrRouter = (arrRouter: Array<any>) => {
+  // 对每个子包内的页面排序
+  for (let itemRouter of arrRouter) {
+    const arrResult: Array<{ value: string; notes: string }> =
+      itemRouter.pages.value;
+    arrResult.sort((objResultA, objResultB) => {
+      const strValueA = String(objResultA.value);
+      const strValueB = String(objResultB.value);
+      return strValueA.localeCompare(strValueB);
+    });
+  }
+  // 对子包排序
+  arrRouter.sort((routerA, routerB) => {
+    const strValueA = String(routerA.root.value);
+    const strValueB = String(routerB.root.value);
+    return strValueA.localeCompare(strValueB);
+  });
+};
+
+/**
  * 将解析出来的路由对象，改变为字符流
  * @param arrRouter
  */
 const transformRouterStream = (arrRouter: Array<any>) => {
   const strHeader = "const sub = [\n";
-  const strTail = "]\n\nmodule.exports = sub";
+  const strTail = "]\n\nmodule.exports = sub\n";
   let result = "";
   result += strHeader;
   for (let item of arrRouter) {
     result += "\t{\n";
     // 解析name
-    if (item.name.value) {
-      result +=
-        `\t\tname: '${item.name.value}',` +
-        `${item.name.notes && ` // ${item.name.notes}`}` +
-        `\n`;
+    if (item?.name?.value) {
+      result += transformName(item?.name);
     }
     // 解析root
-    if (item.root.value) {
-      result +=
-        `\t\troot: '${item.root.value}',` +
-        `${item.root.notes && ` // ${item.root.notes}`}` +
-        `\n`;
+    if (item?.root?.value) {
+      result += transformRoot(item?.root);
     }
     // 解析pages
-    if (item.pages.value.length >= 0) {
-      result += `\t\tpages: [\n`;
-      for (let itemPageValue of item.pages.value) {
-        result +=
-          `\t\t\t'${itemPageValue.value}',` +
-          `${itemPageValue.notes && ` // ${itemPageValue.notes}`}` +
-          `\n`;
-      }
-      result +=
-        `\t\t],` + `${item.pages.notes && ` // ${item.pages.notes}`}` + `\n`;
+    if (item?.pages?.value?.length >= 0) {
+      result += transformPages(item?.pages);
     }
     result += "\t},\n";
   }
@@ -191,9 +323,17 @@ const transformRouterStream = (arrRouter: Array<any>) => {
 
 /**
  * 处理路由文件
- * @param path
+ * @param fileRouter 文件内容
+ * @param path 文件路径
+ * @param pageName 新增页面名称
+ * @param pageNotes 新增页面注释
  */
-export const dealRouterFile = (fileRouter: string) => {
+export const dealRouterFile = (
+  fileRouter: string,
+  path: string,
+  pageName: string,
+  pageNotes?: string
+) => {
   const strRouter = trimRouterFile(fileRouter);
   let arrRouter = strRouter.split("},\n\t{").map((item) => {
     const objNameInfo = getItemValueFromKey(item, "name: ");
@@ -214,15 +354,16 @@ export const dealRouterFile = (fileRouter: string) => {
       },
     };
   });
-  console.log("dealRouterFile0", arrRouter);
-  // 对路由排序
-  // arrRouter.sort((routerA, routerB) => {
-  //   const strValueA = String(routerA.root.value);
-  //   const strValueB = String(routerB.root.value);
-  //   return strValueA.localeCompare(strValueB);
-  // });
+  // 新增页面路由
+  addArrRouter(arrRouter, path, pageName, pageNotes);
+  // 对路由对象进行字母排序
+  if (vscode.workspace.getConfiguration().get("code-maker.taroqm.sortPage")) {
+    sortArrRouter(arrRouter);
+  }
+  // 将路由对象改变为字符流
   const strRouterStream = transformRouterStream(arrRouter);
-  console.log("dealRouterFile1", strRouterStream);
+  // console.log("dealRouterFile0", arrRouter);
+  // console.log("dealRouterFile1", strRouterStream);
   return strRouterStream;
 };
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import Taro, { useRouter } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 
@@ -24,29 +24,15 @@ export default function TaroQmPage() {
 	}
 
 	return (
-		<PageContainer
-			nav={{
-				border: true,
-				title: id,
-				fixed: true,
-			}}
-		>
-			<ShareContainer>
-				{isLoadComplete && (
-					<View className='taro-qm-page-wrap'>
-						<View className='taro-qm-page-name'>
-							{Config.EXT_CONFIG.appName}
-						</View>
-						<QMButton
-							color='var(--primary-color, #ffa900)'
-							customClass='taro-qm-page-btn'
-							onClick={handleButtonClick}
-						>
-							{value}
-						</QMButton>
+		<View className='taro-qm-page-wrap'>
+      {isLoadComplete && (
+				<Fragment>
+					<View className='taro-qm-page-name'>{id}</View>
+					<View className='taro-qm-page-btn' onClick={handleButtonClick}>
+						{value}
 					</View>
-				)}
-			</ShareContainer>
-		</PageContainer>
+				</Fragment>
+			)}
+    </View>
 	)
 }

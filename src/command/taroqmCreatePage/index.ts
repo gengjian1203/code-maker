@@ -27,6 +27,10 @@ const arrFileExt = [
       },
     ],
   },
+  {
+    ext: "config.ts",
+    process: [],
+  },
 ];
 
 /**
@@ -83,9 +87,10 @@ const copyFileSuccess = (pathDist: string, index: number) => {
 /**
  * 注册router
  * @param path 供参考的路径
+ * @param pageName 页面名称
+ * @param pageNotes 页面注释
  */
-const registerRouter = (path: string) => {
-  // const pathRouter = `${path}`;
+const registerRouter = (path: string, pageName: string, pageNotes?: string) => {
   const nIndex = path.indexOf("src/pages");
   if (nIndex >= 0) {
     const pathRouter =
@@ -95,7 +100,12 @@ const registerRouter = (path: string) => {
       // 读取文件内容
       let fileRouter = fs.readFileSync(pathRouter);
       // 处理路由文本
-      const strRouterStream = dealRouterFile(fileRouter.toString());
+      const strRouterStream = dealRouterFile(
+        fileRouter.toString(),
+        path,
+        pageName,
+        pageNotes
+      );
       // 写入文件内容
       fs.writeFileSync(pathRouter, strRouterStream);
     }
@@ -108,29 +118,36 @@ export default (context: any) => {
     (res) => {
       const path = res.fsPath;
       const options = {
-        prompt: "请输入新建Taro(QM)页面的名称: ",
-        placeHolder: "页面名",
+        prompt: "请输入新建Taro(QM)页面的:页面名称|页面注释",
+        placeHolder: "page-test|这是一个测试页面",
       };
 
       vscode.window.showInputBox(options).then((value) => {
-        if (!value) {
+        const arrValue = String(value).split("|");
+        const pageName = arrValue && arrValue[0] ? arrValue && arrValue[0] : "";
+        const pageNotes =
+          arrValue && arrValue[1] ? arrValue && arrValue[1] : "";
+        if (!value || !arrValue || !pageName) {
+          vscode.window.showInformationMessage("新建页面的名称不能为空");
           return;
         }
+
         // 拷贝模板文件
         arrFileExt.map((item, index) => {
           copyFile({
-            pathDist: `${path}/${value}/index.${item.ext}`,
+            pathDist: `${path}/${pageName}/index.${item.ext}`,
             pathSource: `${context.extensionPath}/template/TaroQmPage/${item.ext}.tmp`,
             dealTemplate: (template: string) => {
-              return dealTemplate(template, value, item);
+              return dealTemplate(template, pageName, item);
             },
             success: (param) => {
               copyFileSuccess(param.pathDist, index);
             },
           });
         });
-        // // 注册router
-        registerRouter(path);
+
+        // 注册router
+        registerRouter(path, pageName, pageNotes);
       });
     }
   );

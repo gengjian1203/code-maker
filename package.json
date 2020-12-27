@@ -9,7 +9,7 @@
     "plugin",
     "taro"
   ],
-  "version": "1.0.7",
+  "version": "1.0.8",
   "publisher": "gengjian1203",
   "icon": "images/icon.png",
   "engines": {
@@ -79,7 +79,12 @@
           "code-maker.taroqm.enabled": {
             "type": "boolean",
             "default": true,
-            "markdownDescription": "开启`Taro(QM)`代码助手。"
+            "markdownDescription": "开启`Taro(QM)`代码助手"
+          },
+          "code-maker.taroqm.sortPage": {
+            "type": "boolean",
+            "default": false,
+            "markdownDescription": "`Taro(QM)`代码助手：新建页面是否对路由文件排序"
           }
         }
       }
