@@ -2,9 +2,9 @@
   "map循环": {
     "prefix": "cm.mapx",
     "body": [
-      "{items.map((item, index) => (",
+      "{${1:items}.map((${2:item}, index) => (",
       "  <View key={index}>",
-      "    {item}",
+      "    ${2:item}",
       "  </View>",
       "))}"
     ],

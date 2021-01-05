@@ -23,6 +23,7 @@
     "url": "https://github.com/gengjian1203/code-maker"
   },
   "activationEvents": [
+    "onCommand:code-maker.format.Import",
     "onCommand:code-maker.taroqm.CreateComponent",
     "onCommand:code-maker.taroqm.CreatePage",
     "onCommand:code-maker.taroqm.EditComponent",
@@ -37,6 +38,10 @@
       }
     ],
     "commands": [
+      {
+        "command": "code-maker.format.Import",
+        "title": "格式化Import文件引用顺序"
+      },
       {
         "command": "code-maker.taroqm.CreateComponent",
         "title": "创建Taro(QM)组件模板"
@@ -67,7 +72,13 @@
           "when": "config.code-maker.taroqm.enabled"
         }
       ],
-      "editor/context": [],
+      "editor/context": [
+        {
+          "command": "code-maker.format.Import",
+          "group": "navigation",
+          "when": "config.code-maker.format.import.enabled"
+        }
+      ],
       "editor/title": [],
       "editor/title/context": []
     },
@@ -76,6 +87,11 @@
         "type": "object",
         "title": "Code Maker",
         "properties": {
+          "code-maker.format.import.enabled": {
+            "type": "boolean",
+            "default": false,
+            "markdownDescription": "开启`格式化`Import文件引用顺序"
+          },
           "code-maker.taroqm.enabled": {
             "type": "boolean",
             "default": true,
