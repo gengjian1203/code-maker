@@ -1,22 +1,21 @@
 # Change Log
 
-All notable changes to the "code-maker" extension will be documented in this file.
+- V1.0.9
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
-
-## [Unreleased]
+  1. 新增：资源管理器目录右键更新 Taro(QM)Iconfont 引用样式。
+  2. 新增：新建页面的时候，同时生成 components 文件夹。
 
 - V1.0.8
 
-  1. 实现新建页面文件，同时自动插入路由子包注册文件。
-  2. 新建页面文件，同时生成配套的 config 文件。
-  3. 调整项目结构。
+  1. 新增：实现新建页面文件，同时自动插入路由子包注册文件。
+  2. 优化：新建页面文件，同时生成配套的 config 文件。
+  3. 优化：调整项目结构。
 
 - V1.0.7
 
-  1.  资源管理器目录右键生成 Taro(QM)组件模板。
-  2.  资源管理器目录右键生成 Taro(QM)页面模板。
-  3.  支持命令“编辑 Taro(QM)组件模板”。
-  4.  支持命令“编辑 Taro(QM)页面模板”。
+  1.  新增：资源管理器目录右键生成 Taro(QM)组件模板。
+  2.  新增：资源管理器目录右键生成 Taro(QM)页面模板。
+  3.  新增：支持命令“编辑 Taro(QM)组件模板”。
+  4.  新增：支持命令“编辑 Taro(QM)页面模板”。
 
 - Initial release

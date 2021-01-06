@@ -132,10 +132,12 @@ export default (context: any) => {
           return;
         }
 
+        const pathDir = `${path}/${pageName}`;
+
         // 拷贝模板文件
         arrFileExt.map((item, index) => {
           copyFile({
-            pathDist: `${path}/${pageName}/index.${item.ext}`,
+            pathDist: `${pathDir}/index.${item.ext}`,
             pathSource: `${context.extensionPath}/template/TaroQmPage/${item.ext}.tmp`,
             dealTemplate: (template: string) => {
               return dealTemplate(template, pageName, item);
@@ -145,6 +147,8 @@ export default (context: any) => {
             },
           });
         });
+        // 创建组件目录
+        fs.mkdirSync(`${pathDir}/components/`);
 
         // 注册router
         registerRouter(path, pageName, pageNotes);

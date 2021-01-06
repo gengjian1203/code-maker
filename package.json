@@ -9,7 +9,7 @@
     "plugin",
     "taro"
   ],
-  "version": "1.0.8",
+  "version": "1.0.9",
   "publisher": "gengjian1203",
   "icon": "images/icon.png",
   "engines": {
@@ -27,7 +27,8 @@
     "onCommand:code-maker.taroqm.CreateComponent",
     "onCommand:code-maker.taroqm.CreatePage",
     "onCommand:code-maker.taroqm.EditComponent",
-    "onCommand:code-maker.taroqm.EditPage"
+    "onCommand:code-maker.taroqm.EditPage",
+    "onCommand:code-maker.taroqm.UpdateIconfont"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -57,6 +58,10 @@
       {
         "command": "code-maker.taroqm.EditPage",
         "title": "编辑Taro(QM)页面模板"
+      },
+      {
+        "command": "code-maker.taroqm.UpdateIconfont",
+        "title": "更新Taro(QM)Iconfont引用样式"
       }
     ],
     "menus": {
@@ -68,6 +73,11 @@
         },
         {
           "command": "code-maker.taroqm.CreatePage",
+          "group": "navigation",
+          "when": "config.code-maker.taroqm.enabled"
+        },
+        {
+          "command": "code-maker.taroqm.UpdateIconfont",
           "group": "navigation",
           "when": "config.code-maker.taroqm.enabled"
         }
@@ -134,6 +144,7 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "inquirer": "^7.3.3"
   }
 }

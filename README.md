@@ -4,15 +4,16 @@
 如果有觉得还可以的同学帮忙点个小星星~
 [https://github.com/gengjian1203/code-maker](https://github.com/gengjian1203/code-maker)
 
-目前支持以下框架。（可通过插件设置页`settings.json`开关对应脚本）
+目前支持以下框架。（可通过插件设置页`settings.json`调整开关对应脚本）
 
 ### 一、Taro(QM)
 
 1.  资源管理器目录右键生成 Taro(QM)组件模板。
 2.  资源管理器目录右键生成 Taro(QM)页面模板，并且自动插入路由子包注册文件。(保留注释内容)
-3.  支持命令“编辑 Taro(QM)组件模板”。
-4.  支持命令“编辑 Taro(QM)页面模板”。
-5.  代码片段
+3.  资源管理器目录右键更新 Taro(QM)Iconfont 引用样式。
+4.  支持命令“编辑 Taro(QM)组件模板”。
+5.  支持命令“编辑 Taro(QM)页面模板”。
+6.  代码片段
 
 ```
 // cm.mapx
@@ -26,7 +27,7 @@
 ### 开发插件附录
 
 > 自动化生成 VSCode 插件命令的 CLI 工具。
-> 以便提升插件的开发效率。
+> 优化新建插件命令的体验。
 
 ```bash
 node ./cli.js
