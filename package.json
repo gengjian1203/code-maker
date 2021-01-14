@@ -28,7 +28,8 @@
     "onCommand:code-maker.taroqm.CreatePage",
     "onCommand:code-maker.taroqm.EditComponent",
     "onCommand:code-maker.taroqm.EditPage",
-    "onCommand:code-maker.taroqm.UpdateIconfont"
+    "onCommand:code-maker.taroqm.UpdateIconfont",
+    "onCommand:code-maker.view.Fetch"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -62,6 +63,10 @@
       {
         "command": "code-maker.taroqm.UpdateIconfont",
         "title": "更新Taro(QM)Iconfont引用样式"
+      },
+      {
+        "command": "code-maker.view.Fetch",
+        "title": "模拟接口请求页面"
       }
     ],
     "menus": {

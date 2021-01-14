@@ -1,4 +1,5 @@
 import copyFile from "./copyFile";
+import getWebViewContent from "./getWebViewContent";
 import openFile from "./openFile";
 
-export { copyFile, openFile };
+export { copyFile, getWebViewContent, openFile };
