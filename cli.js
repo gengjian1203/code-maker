@@ -69,7 +69,7 @@ const confirmList = [
  * @param {*} param
  */
 const insertPackageEvents = (param) => {
-  packageInfo.activationEvents.push(`onCommand:${param.name}`);
+  packageInfo.activationEvents.push(`onCommand:code-maker.${param.name}`);
   packageInfo.activationEvents.sort((nameA, nameB) => {
     return nameA > nameB;
   });
@@ -81,7 +81,7 @@ const insertPackageEvents = (param) => {
  */
 const insertPackageCommands = (param) => {
   packageInfo.contributes.commands.push({
-    command: `${param.name}`,
+    command: `code-maker.${param.name}`,
     title: param.title,
   });
   packageInfo.contributes.commands.sort((commandA, commandB) => {
@@ -100,7 +100,7 @@ const insertPackageMenus = (param) => {
     });
     if (nIndex >= 0) {
       packageInfo.contributes.menus[arrMenusList[nIndex].code].push({
-        command: `${param.name}`,
+        command: `code-maker.${param.name}`,
         group: "navigation",
         when: "true",
       });
