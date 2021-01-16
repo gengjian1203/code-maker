@@ -34,6 +34,8 @@ const trimRouterFile = (fileRouter: string) => {
 
   // 用以兼容win系统 对于读取文件流里的换行，win是'\r\n' mac是'\n'
   strResult = strResult.replace(/\r\n/g, "\n");
+  // 两个空格转换为\t
+  strResult = strResult.replace(/  /g, "\t");
   // 对于/**/类型的注释，有后面有n个\n，n个\t的字符，直接忽略删除，以免对解析对象有影响
   strResult = strResult.replace(/\/\*{1,2}[\s\S]*?\*\/\n*\t*/g, "");
 
