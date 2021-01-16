@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { copyFile, openFile } from "../../utils";
+import { copyFile, formatPath, openFile } from "../../utils";
 import { dealRouterFile } from "./utils";
 
 const fs = require("fs");
@@ -91,10 +91,12 @@ const copyFileSuccess = (pathDist: string, index: number) => {
  * @param pageNotes 页面注释
  */
 const registerRouter = (path: string, pageName: string, pageNotes?: string) => {
-  const nIndex = path.indexOf("src/pages");
+  const pathReal = formatPath(path);
+  const nIndex = pathReal.indexOf("src/pages");
   if (nIndex >= 0) {
-    const pathRouter =
-      `${path.substring(0, nIndex)}` + `builder/default/router/sub.js`;
+    const pathRouter = formatPath(
+      `${pathReal.substring(0, nIndex)}` + `builder/default/router/sub.js`
+    );
     // router文件是否存在
     if (fs.existsSync(pathRouter)) {
       // 读取文件内容
@@ -102,7 +104,7 @@ const registerRouter = (path: string, pageName: string, pageNotes?: string) => {
       // 处理路由文本
       const strRouterStream = dealRouterFile(
         fileRouter.toString(),
-        path,
+        pathReal,
         pageName,
         pageNotes
       );
