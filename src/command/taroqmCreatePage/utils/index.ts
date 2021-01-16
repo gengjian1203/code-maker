@@ -31,7 +31,13 @@ const trimRouterFile = (fileRouter: string) => {
   // strResult = strResult.replace(/root:/g, "'root':");
   // strResult = strResult.replace(/pages:/g, "'pages':");
   // strResult = strResult.replace(/\'/g, '"');
-  strResult = strResult.replace(/\/\*{1,2}[\s\S]*?\*\//g, "");
+
+  // 用以兼容win系统 对于读取文件流里的换行，win是'\r\n' mac是'\n'
+  strResult = strResult.replace(/\r\n/g, "\n");
+  // 对于/**/类型的注释，有后面有n个\n，n个\t的字符，直接忽略删除，以免对解析对象有影响
+  strResult = strResult.replace(/\/\*{1,2}[\s\S]*?\*\/\n*\t*/g, "");
+
+  console.log("trimRouterFile", strResult);
 
   return strResult;
 };
@@ -336,6 +342,7 @@ export const dealRouterFile = (
 ) => {
   const strRouter = trimRouterFile(fileRouter);
   let arrRouter = strRouter.split("},\n\t{").map((item) => {
+    // console.log("dealRouterFile", item);
     const objNameInfo = getItemValueFromKey(item, "name: ");
     const objRootInfo = getItemValueFromKey(item, "root: ");
     const objPagesInfo = getItemValueFromKey(item, "pages: ");

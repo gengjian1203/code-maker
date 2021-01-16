@@ -1,7 +1,7 @@
 # Code Maker (代码助手)
 
 一款致力于可以工程化生成模板代码片段的 VSCode 开源插件。  
-如果有觉得还可以的同学帮忙点个小星星~
+如果有觉得还可以的同学帮忙点个小星星~  
 [https://github.com/gengjian1203/code-maker](https://github.com/gengjian1203/code-maker)
 
 目前支持以下框架。（可通过插件设置页`settings.json`调整开关对应脚本）
