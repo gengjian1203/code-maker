@@ -5,7 +5,7 @@ const path = require("path");
 /**
  * 从某个HTML文件读取能被Webview加载的HTML内容
  * @param {*} context 上下文
- * @param {*} templatePath 相对于插件根目录的html文件相对路径 如：'./template/ViewFetch/index.html'
+ * @param {*} templatePath 相对于插件根目录的html文件相对路径 如：'./template/ViewTool/index.html'
  */
 const getWebViewContent = (context: any, templatePath: any) => {
   const resourcePath = path.join(context.extensionPath, templatePath);

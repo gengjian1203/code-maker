@@ -1,0 +1,33 @@
+import Taro, { Component } from '@tarojs/taro'
+import { View } from '@tarojs/components'
+
+import './index.less'
+
+export default class TaroPage extends Component {
+  config = {
+    navigationBarTitleText: 'TaroPage'
+  }
+
+  constructor(props) {
+    super(props)
+    this.state = {}
+    this.loadPage = this.loadPage.bind(this)
+  }
+
+  async componentDidMount() {
+    await this.loadPage()
+  }
+
+  // 加载页面数据
+  async loadPage() {
+    console.log('TaroPage loadPage')
+  }
+
+  render() {
+    return (
+      <View>
+        <View className='taro-page-wrap'>Hello, TaroPage</View>
+      </View>
+    )
+  }
+}

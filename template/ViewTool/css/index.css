@@ -1,0 +1,46 @@
+.page-wrap {
+}
+
+.page-wrap .module-wrap {
+  align-items: flex-start;
+  width: 100%;
+}
+
+.page-wrap .module-wrap .module-title {
+  align-items: flex-start;
+  margin-top: 0.2rem;
+  font-size: 0.28rem;
+  font-weight: bold;
+  color: #6fb6ea;
+}
+
+.page-wrap .module-wrap .module-content {
+  align-items: flex-start;
+  font-size: 0.28rem;
+  font-weight: bold;
+  color: #6fb6ea;
+}
+
+.page-wrap .module-wrap .module-content .module-item {
+}
+
+.page-wrap .module-wrap .module-content .module-item-title {
+}
+
+/* 时间戳 */
+.page-wrap .btn-normal {
+  margin-right: 0.04rem;
+  font-size: 0.24rem;
+  line-height: 0.24rem;
+  height: 0.4rem;
+}
+
+.page-wrap .input-short {
+  width: 2rem;
+  font-size: 0.22rem;
+}
+
+.page-wrap .input-normal {
+  width: 4rem;
+  font-size: 0.22rem;
+}

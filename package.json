@@ -9,7 +9,7 @@
     "plugin",
     "taro"
   ],
-  "version": "1.0.11",
+  "version": "1.1.0",
   "publisher": "gengjian1203",
   "icon": "images/icon.png",
   "engines": {
@@ -23,13 +23,15 @@
     "url": "https://github.com/gengjian1203/code-maker"
   },
   "activationEvents": [
-    "onCommand:code-maker.format.Import",
-    "onCommand:code-maker.taroqm.CreateComponent",
-    "onCommand:code-maker.taroqm.CreatePage",
-    "onCommand:code-maker.taroqm.EditComponent",
-    "onCommand:code-maker.taroqm.EditPage",
-    "onCommand:code-maker.taroqm.UpdateIconfont",
-    "onCommand:code-maker.view.Fetch"
+    "onCommand:code-maker.format.AutoClassNameCSS",
+    "onCommand:code-maker.taro.CreateComponent",
+    "onCommand:code-maker.taro.CreatePage",
+    "onCommand:code-maker.taro.EditComponent",
+    "onCommand:code-maker.taro.EditPage",
+    "onCommand:code-maker.taro.QuickOpenWorkspace",
+    "onCommand:code-maker.taro.UpdateIconfont",
+    "onCommand:code-maker.view.Tool",
+    "onView:coder-maker-tool"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -41,81 +43,147 @@
     ],
     "commands": [
       {
-        "command": "code-maker.format.Import",
-        "title": "格式化Import文件引用顺序"
+        "command": "code-maker.format.AutoClassNameCSS",
+        "title": "自动构建className模板"
       },
       {
-        "command": "code-maker.taroqm.CreateComponent",
-        "title": "创建Taro(QM)组件模板"
+        "command": "code-maker.taro.CreateComponent",
+        "title": "创建Taro组件模板"
       },
       {
-        "command": "code-maker.taroqm.CreatePage",
-        "title": "创建Taro(QM)页面模板"
+        "command": "code-maker.taro.CreatePage",
+        "title": "创建Taro页面模板"
       },
       {
-        "command": "code-maker.taroqm.EditComponent",
-        "title": "编辑Taro(QM)组件模板"
+        "command": "code-maker.taro.EditComponent",
+        "title": "编辑Taro组件模板"
       },
       {
-        "command": "code-maker.taroqm.EditPage",
-        "title": "编辑Taro(QM)页面模板"
+        "command": "code-maker.taro.EditPage",
+        "title": "编辑Taro页面模板"
       },
       {
-        "command": "code-maker.taroqm.UpdateIconfont",
-        "title": "更新Taro(QM)Iconfont引用样式"
+        "command": "code-maker.taro.QuickOpenWorkspace",
+        "title": "快速打开工作区"
       },
       {
-        "command": "code-maker.view.Fetch",
-        "title": "模拟接口请求页面"
+        "command": "code-maker.taro.UpdateIconfont",
+        "title": "更新Taro Iconfont引用样式"
+      },
+      {
+        "command": "code-maker.view.Tool",
+        "title": "常用工具页面",
+        "icon": {
+          "light": "./images/icon.svg",
+          "dark": "./images/icon.svg"
+        }
       }
     ],
     "menus": {
       "explorer/context": [
         {
-          "command": "code-maker.taroqm.CreateComponent",
+          "command": "code-maker.taro.CreateComponent",
           "group": "navigation",
-          "when": "config.code-maker.taroqm.enabled"
+          "when": "config.code-maker.taro.enabled && explorerResourceIsFolder == true"
         },
         {
-          "command": "code-maker.taroqm.CreatePage",
+          "command": "code-maker.taro.CreatePage",
           "group": "navigation",
-          "when": "config.code-maker.taroqm.enabled"
+          "when": "config.code-maker.taro.enabled && explorerResourceIsFolder == true"
         },
         {
-          "command": "code-maker.taroqm.UpdateIconfont",
+          "command": "code-maker.taro.QuickOpenWorkspace",
           "group": "navigation",
-          "when": "config.code-maker.taroqm.enabled"
+          "when": "config.code-maker.taro.enabled && explorerResourceIsFolder == true"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "code-maker.taro.QuickOpenWorkspace",
+          "group": "navigation",
+          "when": "config.code-maker.taro.enabled && viewItem == customSidebarItem"
         }
       ],
       "editor/context": [
         {
-          "command": "code-maker.format.Import",
+          "command": "code-maker.format.AutoClassNameCSS",
           "group": "navigation",
-          "when": "config.code-maker.format.import.enabled"
+          "when": "config.code-maker.taro.enabled &&  resourceExtname == .js || resourceExtname == .ts || resourceExtname == .jsx || resourceExtname == .tsx"
         }
       ],
-      "editor/title": [],
+      "editor/title": [
+        {
+          "command": "code-maker.view.Tool",
+          "group": "navigation",
+          "when": "config.code-maker.taro.enabled "
+        }
+      ],
       "editor/title/context": []
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "coder-maker-sidebar",
+          "title": "Code Maker",
+          "icon": "./images/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "coder-maker-sidebar": [
+        {
+          "id": "coder-maker-tool",
+          "name": "模块"
+        },
+        {
+          "id": "coder-maker-tool-bk",
+          "name": "模块备份"
+        }
+      ]
     },
     "configuration": [
       {
         "type": "object",
         "title": "Code Maker",
         "properties": {
-          "code-maker.format.import.enabled": {
-            "type": "boolean",
-            "default": false,
-            "markdownDescription": "开启`格式化`Import文件引用顺序"
-          },
-          "code-maker.taroqm.enabled": {
+          "code-maker.taro.enabled": {
             "type": "boolean",
             "default": true,
-            "markdownDescription": "开启`Taro(QM)`代码助手"
+            "markdownDescription": "开启`Taro`代码助手"
           },
-          "code-maker.taroqm.sortPage": {
-            "type": "boolean",
-            "default": false,
-            "markdownDescription": "`Taro(QM)`代码助手：新建页面是否对路由文件排序"
+          "code-maker.taro.grammar": {
+            "type": "string",
+            "default": "JsClass",
+            "enum": [
+              "JsClass",
+              "JsFun",
+              "TsClass",
+              "TsFun"
+            ],
+            "markdownDescription": "`Taro`代码助手遵循语法",
+            "enumDescriptions": [
+              "遵循“Js+类”组件语法",
+              "遵循“Js+函数式”组件语法",
+              "遵循“Ts+类”组件语法",
+              "遵循“Ts+函数式”组件语法"
+            ]
+          },
+          "code-maker.taro.cssType": {
+            "type": "string",
+            "default": "less",
+            "enum": [
+              "less",
+              "css",
+              "sass",
+              "scss"
+            ],
+            "markdownDescription": "`Taro`代码助手CSS预处理器",
+            "enumDescriptions": [
+              "less",
+              "css",
+              "sass",
+              "scss"
+            ]
           }
         }
       }

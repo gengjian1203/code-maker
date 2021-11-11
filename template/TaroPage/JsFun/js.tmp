@@ -1,0 +1,26 @@
+import Taro, { useRouter, useState, useEffect } from '@tarojs/taro'
+import { View } from '@tarojs/components'
+
+import './index.less'
+
+export default function TaroPage() {
+  const {
+    path,
+    params: { id = '' }
+  } = useRouter()
+
+  useEffect(() => {
+    loadPage()
+  }, [])
+
+  // 加载页面数据
+  const loadPage = async () => {
+    console.log('TaroPage loadPage')
+  }
+
+  return (
+    <View>
+      <View className='taro-page-wrap'>Hello, TaroPage</View>
+    </View>
+  )
+}
