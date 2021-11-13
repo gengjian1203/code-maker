@@ -1,4 +1,4 @@
-import FetchManager from "./services/FetchManager.js";
+// import FetchManager from "./service/FetchManager.js";
 
 const ak = "HGtCGFPlNXNqAN9PsXPvi71vrDmAAsFp"; // 百度API接口秘钥
 
@@ -20,10 +20,30 @@ const fetchGET = async (url) => {
       dataType: "jsonp",
       jsonp: "callback", // 传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
       jsonpCallback: "callback", // 自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名
-      timeout: 5000,
+      timeout: 20000,
       contentType: "application/json; charset=utf-8",
       success: (res) => {
         resolve(res);
+      },
+    });
+  });
+};
+
+/**
+ * 接口POST请求
+ */
+const fetchPOST = async (url, data) => {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      url: url,
+      data: data,
+      type: "POST",
+      timeout: 20000,
+      success: (res) => {
+        resolve(res);
+      },
+      complete: (res) => {
+        console.log("fetchPOST", res);
       },
     });
   });
@@ -67,20 +87,36 @@ const reverseGeocodingAddress = async (location) => {
 /**
  * 根据城市名字反查省份
  */
-async function getProvinceFromCity(strCity) {
+const getProvinceFromCity = async (strCity) => {
   const location = await geocodingAddress(strCity);
   const addressComponent = await reverseGeocodingAddress(location);
   return {
     location,
     addressComponent,
   };
-}
+};
+
+/**
+ * 发送机器人消息
+ */
+const sendRobot = async () => {
+  console.log("sendRobot1");
+  const url = `https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=e90ad37a-12aa-49d4-b028-3f8166b8a076`;
+  const data = JSON.stringify({
+    msgtype: "text",
+    text: {
+      content: "hello world",
+    },
+  });
+  const res = await fetchPOST(url, data);
+  return res;
+};
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // 初始化页面
-function initPage() {
+const initPage = () => {
   const userAgent = navigator.userAgent.toLowerCase();
   $("#_page-user-agent").text(userAgent);
   config = {
@@ -92,22 +128,22 @@ function initPage() {
       userAgent.includes("micromessenger") && userAgent.includes("wxwork"),
   };
   console.log("initPage", config);
-}
+};
 
 /**
  * 点击获取当前时间戳按钮
  */
-function handleBtnTimestampClick() {
+const handleBtnTimestampClick = () => {
   console.log("_timestamp-btn onclick");
   const date = new Date();
   $("#_timestamp-input-label").val(date.toString());
   $("#_timestamp-input-value").val(date.getTime());
-}
+};
 
 /**
  * 点击反查地址按钮
  */
-async function handleBtnAddressClick() {
+const handleBtnAddressClick = async () => {
   const strCity = $("#_address-input-city").val().trim();
   const res = await getProvinceFromCity(strCity);
   console.log("_address-btn onclick", strCity, res);
@@ -118,12 +154,12 @@ async function handleBtnAddressClick() {
     $("#_address-input-ll").val(``);
   }
   $("#_address-input-province").val(addressComponent.province);
-}
+};
 
 /**
  * 点击反查列表地址按钮
  */
-async function handleBtnAddressListClick() {
+const handleBtnAddressListClick = async () => {
   $("#_address-list-result").empty();
   const strCityList = $("#_address-list-input-city").val().trim();
   const strMarket = $("#_address-list-input-market").val().trim();
@@ -173,10 +209,18 @@ async function handleBtnAddressListClick() {
     );
   }
   console.log("arrResList", strMarket, arrResList);
-}
+};
+
+/**
+ * 点击机器人发消息按钮
+ */
+const handleBtnRobotClick = async () => {
+  console.log("handleBtnRobotClick");
+  const res = await sendRobot();
+};
 
 // 注册事件
-function regEventFunction() {
+const regEventFunction = () => {
   // 注册调试
   const vConsole = new VConsole();
   console.log("vConsole", vConsole);
@@ -187,13 +231,16 @@ function regEventFunction() {
     $("#_page-btn-show").text(
       $("#_page-btn-show").text() === "miss" ? "show" : "miss"
     );
-    const res = await FetchManager.exec();
   });
 
+  //
   $("#_timestamp-btn").bind("click", handleBtnTimestampClick);
+  //
   $("#_address-btn").bind("click", handleBtnAddressClick);
   $("#_address-list-btn").bind("click", handleBtnAddressListClick);
-}
+  //
+  $("#_robot-btn").bind("click", handleBtnRobotClick);
+};
 
 window.onload = () => {
   console.log("hello view Tool1");

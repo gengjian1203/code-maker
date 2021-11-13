@@ -5,8 +5,6 @@
     <title>常用工具页面</title>
     <link rel="stylesheet" href="./css/index.css" />
     <link rel="stylesheet" href="./css/base.css" />
-    <script src="./js/jquery-3.6.0.min.js"></script>
-    <script src="./js/vconsole.min.js"></script>
   </head>
   <body>
     <div id="_page-normal" class="page-wrap">
@@ -67,7 +65,25 @@
 
       <!-- 反查结果区域 -->
       <ul id="_address-list-result"></ul>
+
+      <!-- 机器人发消息 -->
+      <div class="flex-start-v module-wrap">
+        <div class="flex-start-v module-title">机器人</div>
+        <div class="flex-start-v module-content">
+          <button id="_robot-btn" class="btn-normal">发送消息</button>
+        </div>
+      </div>
     </div>
   </body>
+  <script src="./js/lib/jquery-3.6.0.min.js"></script>
+  <script src="./js/lib/vconsole.min.js"></script>
   <script type="module" src="./js/index.js"></script>
+
+  <!-- <script
+    defer
+    async="true"
+    type="text/javascript"
+    src="./js/lib/require.js"
+    data-main="./js/main.js"
+  ></script> -->
 </html>
