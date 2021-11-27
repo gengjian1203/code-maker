@@ -102,12 +102,106 @@ const getProvinceFromCity = async (strCity) => {
 const sendRobot = async () => {
   console.log("sendRobot1");
   const url = `https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=e90ad37a-12aa-49d4-b028-3f8166b8a076`;
+  // const data = JSON.stringify({
+  //   msgtype: "text",
+  //   text: {
+  //     content: "hello world",
+  //   },
+  // });
+
   const data = JSON.stringify({
-    msgtype: "text",
-    text: {
-      content: "hello world",
+    msgtype: "template_card",
+    template_card: {
+      card_type: "text_notice",
+      source: {
+        icon_url:
+          "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Ft0.qlogo.cn%2Fmbloghead%2Fc85af11d5daed5df825e%2F180&refer=http%3A%2F%2Ft0.qlogo.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1638888139&t=823ef7e4dcec12577dbcaeab1be6bbc3",
+        desc: "我是图标",
+      },
+      main_title: {
+        title: "欢迎使用企业微信",
+        desc: "您的好友正在邀请您加入企业微信",
+      },
+      emphasis_content: {
+        title: "100",
+        desc: "数据含义",
+      },
+      sub_title_text: "下载企业微信还能抢红包！",
+      horizontal_content_list: [
+        {
+          keyname: "邀请人",
+          value: "张三",
+        },
+        {
+          keyname: "企微官网",
+          value: "点击访问",
+          type: 1,
+          url: "https://work.weixin.qq.com/?from=openApi",
+        },
+        // {
+        //   keyname: "企微下载",
+        //   value: "mv0001.mp4",
+        //   type: 2,
+        //   media_id:
+        //     "2TnOrYseY4VwFGVrNqRDv-h4W_P5fLRr-mb5XAdXAv4Xqg5wJBkzBg3EynMkUKf3s",
+        // },
+      ],
+      jump_list: [
+        {
+          type: 1,
+          url: "https://work.weixin.qq.com/?from=openApi",
+          title: "测试链接",
+        },
+        {
+          type: 2,
+          appid: "wx821aadcd431646f9",
+          pagepath: "pages/Loading/index",
+          title: "跳转小程序",
+        },
+      ],
+      card_action: {
+        type: 1,
+        url: "https://prod-5gkxku5cdb510bb2-1259256375.tcloudbaseapp.com/qy_sidebar_tools_h5/index.html?sign=9d534718c4118e4cd8ac1f3b50b08105&t=1636865709",
+        // appid: "APPID",
+        // pagepath: "PAGEPATH",
+      },
     },
   });
+
+  // const data = JSON.stringify({
+  //   msgtype: "markdown",
+  //   markdown: {
+  //     content: `实时新增用户反馈<font color=\"warning\">132例</font>，请相关同事注意。\n
+  //        >类型:<font color=\"comment\">用户反馈</font>
+  //        >普通用户反馈:<font color=\"comment\">117例</font>
+  //        >VIP用户反馈:<font color=\"comment\">15例</font>`,
+  //     mentioned_list: ["YunNiang", "@all"],
+  //     // mentioned_mobile_list: ["13800001111", "@all"],
+  //   },
+  // });
+
+  // const data = JSON.stringify({
+  //   msgtype: "news",
+  //   news: {
+  //     articles: [
+  //       {
+  //         title: "中秋节礼品领取",
+  //         description: "今年中秋节公司有豪礼相送",
+  //         url: "www.qq.com",
+  //         picurl:
+  //           "http://res.mail.qq.com/node/ww/wwopenmng/images/independent/doc/test_pic_msg1.png",
+  //       },
+  //     ],
+  //   },
+  // });
+
+  // const data = JSON.stringify({
+  //   msgtype: "file",
+  //   file: {
+  //     media_id: "YHnanbDrKutQfbpXXN",
+  //   },
+  // });
+
   const res = await fetchPOST(url, data);
   return res;
 };
@@ -239,7 +333,7 @@ const regEventFunction = () => {
   $("#_address-btn").bind("click", handleBtnAddressClick);
   $("#_address-list-btn").bind("click", handleBtnAddressListClick);
   //
-  $("#_robot-btn").bind("click", handleBtnRobotClick);
+  // $("#_robot-btn").bind("click", handleBtnRobotClick);
 };
 
 window.onload = () => {

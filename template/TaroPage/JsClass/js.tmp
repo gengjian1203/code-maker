@@ -25,8 +25,8 @@ export default class TaroPage extends Component {
 
   render() {
     return (
-      <View>
-        <View className='taro-page-wrap'>Hello, TaroPage</View>
+      <View className='taro-page-wrap'>
+        <View>Hello, TaroPage</View>
       </View>
     )
   }

@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { arrFileExt } from "./utils/const";
+import { arrFileExt } from "../../config";
 import { copyFile, openFile } from "../../utils";
 
 /**
@@ -10,11 +10,15 @@ import { copyFile, openFile } from "../../utils";
  */
 const dealTemplate = (template: string, fileName: string, fileExt: any) => {
   let result = template;
-  let name = fileName.trim();
-  if (name) {
+  let strName = fileName.trim();
+  if (strName) {
+    const cssGrammar = String(
+      vscode.workspace.getConfiguration().get("code-maker.taro.cssGrammar")
+    );
     fileExt.process.map((item: any) => {
+      let name = `${strName}${item.tail}`;
       switch (item.type) {
-        case "name":
+        case "name": {
           // 首字母大写
           name = name.replace(name[0], name[0].toUpperCase());
           // -后字母大写
@@ -22,15 +26,30 @@ const dealTemplate = (template: string, fileName: string, fileExt: any) => {
           // 去除-字符
           name = name.replace(/-/g, "");
           break;
-        case "class":
-          // 大写字母前面加-
-          name = name.replace(/[A-Z]/g, (letter) => "-" + letter);
-          // 如果首字符是-，则去掉
-          name = name.startsWith("-") ? name.replace("-", "") : name;
-          // 全部转小写
-          name = name.toLowerCase();
+        }
+        case "class": {
+          if (cssGrammar === "kebab") {
+            // 短横杠命名法
+            // 大写字母前面加-
+            name = name.replace(/[A-Z]/g, (letter) => "-" + letter);
+            // 如果首字符是-，则去掉
+            name = name.startsWith("-") ? name.replace("-", "") : name;
+            // 全部转小写
+            name = name.toLowerCase();
+          } else if (cssGrammar === "camel") {
+            // 小驼峰命名法
+            // 首字母小写
+            name = name.replace(name[0], name[0].toLowerCase());
+            // -后字母大写
+            name = name.replace(/-[a-z]/g, (letter) => letter.toUpperCase());
+            // 去除-字符
+            name = name.replace(/-/g, "");
+          } else {
+            // 无匹配不作处理
+          }
           break;
-        default:
+        }
+        default: {
           // 其他规则（-连接命名法）
           // // 大写字母前面加-
           // name = name.replace(/[A-Z]/g, (letter) => '-' + letter)
@@ -55,6 +74,7 @@ const dealTemplate = (template: string, fileName: string, fileExt: any) => {
           // // 去除-字符
           // name = name.replace(/-/g, "");
           break;
+        }
       }
       result = result.replace(item.reg, name);
     });

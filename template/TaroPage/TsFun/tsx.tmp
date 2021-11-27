@@ -20,8 +20,8 @@ export default function TaroPage() {
   }
 
 	return (
-		<View>
-      <View className='taro-page-wrap'>Hello, TaroPage</View>
+		<View className='taro-page-wrap'>
+      <View>Hello, TaroPage</View>
     </View>
 	)
 }

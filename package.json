@@ -9,7 +9,7 @@
     "plugin",
     "taro"
   ],
-  "version": "1.1.0",
+  "version": "1.1.1",
   "publisher": "gengjian1203",
   "icon": "images/icon.png",
   "engines": {
@@ -166,6 +166,19 @@
               "遵循“Js+函数式”组件语法",
               "遵循“Ts+类”组件语法",
               "遵循“Ts+函数式”组件语法"
+            ]
+          },
+          "code-maker.taro.cssGrammar": {
+            "type": "string",
+            "default": "kebab",
+            "enum": [
+              "kebab",
+              "camel"
+            ],
+            "markdownDescription": "`Taro`代码助手CSS命名语法",
+            "enumDescriptions": [
+              "短横杠命名法",
+              "小驼峰命名法"
             ]
           },
           "code-maker.taro.cssType": {
