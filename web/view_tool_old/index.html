@@ -1,0 +1,89 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta charset="UTF-8" />
+    <title>常用工具页面</title>
+    <link rel="stylesheet" href="./css/index.css" />
+    <link rel="stylesheet" href="./css/base.css" />
+  </head>
+  <body>
+    <div id="_page-normal" class="page-wrap">
+      <div id="_page-user-agent" class="header-text"></div>
+      <div id="_page-btn-show" class="header-text">show</div>
+
+      <!-- 时间戳 -->
+      <div class="flex-start-v module-wrap">
+        <div class="flex-start-v module-title">时间戳</div>
+        <div class="flex-start-v module-content">
+          <button id="_timestamp-btn" class="btn-normal">获取当前时间戳</button>
+          <div class="flex-start-h module-item">
+            <text class="module-item-title">时间1</text>
+            <input id="_timestamp-input-label" class="input-normal" />
+          </div>
+          <div class="flex-start-h module-item">
+            <text class="module-item-title">时间2</text>
+            <input id="_timestamp-input-value" class="input-normal" />
+          </div>
+        </div>
+      </div>
+
+      <!-- 单个地址反查 -->
+      <div class="flex-start-v module-wrap">
+        <div class="flex-start-v module-title">单个地址转换</div>
+        <div class="flex-start-v module-content">
+          <button id="_address-btn" class="btn-normal">反查地址</button>
+          <div class="flex-start-h module-item">
+            <text class="module-item-title">市名</text>
+            <input id="_address-input-city" class="input-normal" />
+          </div>
+          <div class="flex-start-h module-item">
+            <text class="module-item-title">经纬度</text>
+            <input id="_address-input-ll" class="input-normal" />
+          </div>
+          <div class="flex-start-h module-item">
+            <text class="module-item-title">所属省份</text>
+            <input id="_address-input-province" class="input-normal" />
+          </div>
+        </div>
+      </div>
+
+      <!-- 数组地址反查 -->
+      <div class="flex-start-v module-wrap">
+        <div class="flex-start-v module-title">数组地址反查</div>
+        <div class="flex-start-v module-content">
+          <div class="flex-start-h">
+            <button id="_address-list-btn" class="btn-normal">反查地址</button>
+          </div>
+          <div class="flex-start-h module-item">
+            <text class="module-item-title">市场名</text>
+            <input id="_address-list-input-market" class="input-short" />
+            <text class="module-item-title">城市数组</text>
+            <input id="_address-list-input-city" class="input-normal" />
+          </div>
+        </div>
+      </div>
+
+      <!-- 反查结果区域 -->
+      <ul id="_address-list-result"></ul>
+
+      <!-- 机器人发消息 -->
+      <!-- <div class="flex-start-v module-wrap">
+        <div class="flex-start-v module-title">机器人</div>
+        <div class="flex-start-v module-content">
+          <button id="_robot-btn" class="btn-normal">发送消息</button>
+        </div>
+      </div> -->
+    </div>
+  </body>
+  <script src="./js/lib/jquery-3.6.0.min.js"></script>
+  <script src="./js/lib/vconsole.min.js"></script>
+  <script type="module" src="./js/index.js"></script>
+
+  <!-- <script
+    defer
+    async="true"
+    type="text/javascript"
+    src="./js/lib/require.js"
+    data-main="./js/main.js"
+  ></script> -->
+</html>

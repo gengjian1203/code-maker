@@ -1,0 +1,128 @@
+/* 主题色 #6cacf8 */
+html {
+  background-color: white;
+  font-size: 625%;
+}
+
+body {
+  font-size: 0.14rem;
+}
+
+.page-nav {
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+  height: 0.32rem;
+  background-color: #6cacf8;
+}
+
+.page-nav .nav-item {
+  height: 100%;
+  flex: 1 1 auto;
+
+  color: #ffffff;
+  font-size: 0.16rem;
+  line-height: 0.32rem;
+}
+
+.page-nav .nav-item:hover {
+  cursor: pointer;
+  color: #6cacf8;
+  background-image: linear-gradient(90deg, #6cacf8, #ffffff, #6cacf8);
+}
+
+.page-content-wrap {
+  position: relative;
+  box-sizing: border-box;
+  padding-top: 0.32rem;
+  min-width: 100vw;
+  min-height: 100vh;
+  background-color: #e0e0e0;
+}
+
+.page-content-wrap .page-content {
+  box-sizing: border-box;
+  padding: 0.12rem;
+  width: 100%;
+}
+
+.page-content .content-card {
+  box-sizing: border-box;
+  margin-bottom: 0.12rem;
+  padding: 0.12rem;
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 0.04rem;
+}
+
+.page-content .content-card .content-card-line {
+  margin-bottom: 0.12rem;
+  width: 100%;
+  height: 2px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+}
+
+.page-content .content-card .content-card-item {
+  margin-bottom: 0.08rem;
+  width: 100%;
+  min-height: 0.24rem;
+  line-height: 0.24rem;
+}
+
+.page-content .content-card .content-card-item .content-card-item-title {
+  margin-left: 0.12rem;
+  position: relative;
+  color: #313131;
+  font-weight: 600;
+}
+
+.page-content
+  .content-card
+  .content-card-item
+  .content-card-item-title::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -0.12rem;
+  width: 0.06rem;
+  height: 0.24rem;
+  border-radius: 0 0.04rem 0.04rem 0;
+  background-color: #6cacf8;
+  /* background-image: linear-gradient(90deg, red, 1%, "transparent"); */
+}
+
+.page-content .content-card .content-card-item .content-card-item-label {
+  margin-right: 0.12rem;
+  width: 1rem;
+  position: relative;
+  color: #313131;
+}
+
+.page-content .content-card .content-card-item .content-card-item-input {
+  margin-right: 0.12rem;
+  width: 4rem;
+  position: relative;
+  color: #313131;
+}
+
+.page-content .content-card .content-card-item .content-card-item-button {
+  /* flex: 1 1 auto; */
+  width: 1rem;
+  position: relative;
+  color: #313131;
+}
+
+.page-content .content-card .content-card-item .content-card-item-text {
+  flex: 1 1 auto;
+  position: relative;
+  color: #313131;
+}
+
+.page-content .content-card .content-card-item .content-card-item-multi {
+  width: 0;
+  flex: 1 1 auto;
+  position: relative;
+  color: #313131;
+}

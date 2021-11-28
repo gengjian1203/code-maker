@@ -6,7 +6,7 @@ import { getWebViewContent } from "../../utils";
  */
 export default (context: any) => {
   return vscode.commands.registerCommand("code-maker.view.Tool", (res) => {
-    vscode.window.showInformationMessage("view Tool!");
+    // vscode.window.showInformationMessage("view Tool!");
     const panel = vscode.window.createWebviewPanel(
       "viewTool", // viewType
       "常用工具页面", // 视图标题

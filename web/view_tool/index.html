@@ -1,0 +1,166 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta charset="UTF-8" />
+    <title>常用工具页面</title>
+    <link rel="stylesheet" href="./css/base.css" />
+    <link rel="stylesheet" href="./css/index.css" />
+    <!-- <link
+      rel="stylesheet"
+      href="./css/indexPhone.css"
+      media="screen and (max-width:400px)"
+    /> -->
+    <!-- <link
+      rel="stylesheet"
+      href="./css/indexWeb.css"
+      media="screen and (min-width:400px)"
+    /> -->
+  </head>
+  <body>
+    <div class="page-wrap" id="_page">
+      <!-- 顶部导航 -->
+      <div class="flex-between-h page-nav" id="_page-nav"></div>
+      <!-- 主页面 -->
+      <div class="page-content-wrap">
+        <!-- 常用工具 -->
+        <div class="flex-start-v page-content" id="_page-tool">
+          <!-- 时间戳相关 -->
+          <div class="flex-start-v content-card">
+            <div class="flex-start-h content-card-item">
+              <div class="content-card-item-title">时间戳相关</div>
+            </div>
+            <div class="flex-start-h content-card-item">
+              <div class="content-card-item-label">时间戳</div>
+              <input
+                class="content-card-item-input"
+                id="_timestamp-input"
+                placeholder="1638108325790"
+              />
+              <button class="content-card-item-button" id="_timestamp-btn">
+                转换
+              </button>
+            </div>
+            <div class="flex-start-h content-card-item">
+              <div class="content-card-item-label">日期时间</div>
+              <div class="content-card-item-text" id="_timestamp-time"></div>
+            </div>
+            <div class="flex-start-h content-card-item">
+              <div class="content-card-item-label">日期时间简写</div>
+              <div
+                class="content-card-item-text"
+                id="_timestamp-simpletime"
+              ></div>
+            </div>
+          </div>
+          <!-- 城市查询相关 -->
+          <div class="flex-start-v content-card">
+            <div class="flex-start-h content-card-item">
+              <div class="content-card-item-title">城市查询相关</div>
+            </div>
+            <div class="flex-start-h content-card-item">
+              <div class="content-card-item-label">单一地址</div>
+              <input
+                class="content-card-item-input"
+                id="_city-one-input"
+                placeholder="南京"
+                value="南京"
+              />
+              <button class="content-card-item-button" id="_city-one-btn">
+                查询
+              </button>
+            </div>
+            <div class="flex-start-h content-card-item">
+              <div class="content-card-item-label">经纬度</div>
+              <div class="content-card-item-text" id="_city-one-ll"></div>
+            </div>
+            <div class="flex-start-h content-card-item">
+              <div class="content-card-item-label">所属省份</div>
+              <div class="content-card-item-text" id="_city-one-province"></div>
+            </div>
+
+            <div class="content-card-line"></div>
+
+            <div class="flex-start-h content-card-item">
+              <div class="content-card-item-label">多个地址</div>
+              <input
+                class="content-card-item-input"
+                id="_city-multi-input"
+                placeholder="['南京','三亚','马鞍山','台南','镇江']"
+                value="['南京','三亚','马鞍山','台南','镇江']"
+              />
+              <button class="content-card-item-button" id="_city-multi-btn">
+                查询
+              </button>
+            </div>
+            <div class="flex-start-h content-card-item">
+              <div class="content-card-item-label">查询结果</div>
+              <div
+                class="flex-start-v content-card-item-multi"
+                id="_city-multi-result"
+              ></div>
+            </div>
+          </div>
+        </div>
+        <!-- 主页面 常用CSS -->
+        <div class="flex-start-v page-content" id="_page-css">
+          <pre>
+            .text-ellipsis {
+              display: block;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
+          </pre>
+        </div>
+        <!-- 主页面 企微API -->
+        <div class="flex-start-v page-content" id="_page-qw-api">
+          <div class="flex-start-v content-card">
+            <div class="flex-start-h content-card-item">
+              <div class="content-card-item-title">企微机器人</div>
+            </div>
+            <div class="flex-start-h content-card-item">
+              <div class="content-card-item-label">Webhook地址</div>
+              <input
+                class="content-card-item-input"
+                id="_qw-robot-webhook"
+                placeholder="https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"
+              />
+            </div>
+            <div class="flex-start-h content-card-item">
+              <div class="content-card-item-label">文字内容</div>
+              <input
+                class="content-card-item-input"
+                id="_qw-robot-text"
+                placeholder="测试文字"
+                value="测试文字"
+              />
+            </div>
+            <div class="flex-start-h content-card-item">
+              <div class="content-card-item-label">图片内容</div>
+              <input
+                class="content-card-item-input"
+                id="_qw-robot-image"
+                placeholder="https://up.enterdesk.com/edpic/ec/ca/d8/eccad87a334d082b8ff200ae01157e44.jpg"
+                value="https://up.enterdesk.com/edpic/ec/ca/d8/eccad87a334d082b8ff200ae01157e44.jpg"
+              />
+            </div>
+            <div class="flex-start-h content-card-item">
+              <button class="content-card-item-button" id="_qw-robot-btn">
+                发送
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="./js/lib/jquery-3.6.0.min.js"></script>
+  <script src="./js/lib/vconsole.min.js"></script>
+  <script src="./js/config/index.js"></script>
+  <script src="./js/utils/api.js"></script>
+  <script src="./js/utils/events.js"></script>
+  <script src="./js/utils/fetch.js"></script>
+  <script src="./js/utils/kits.js"></script>
+  <script src="./js/utils/tools.js"></script>
+  <script src="./js/index.js" type="module"></script>
+</html>
