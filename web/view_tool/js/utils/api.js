@@ -51,7 +51,7 @@ const getProvinceFromCity = async (strCity) => {
  * 发送机器人消息
  */
 const sendRobot = async () => {
-  console.log("sendRobot1");
+  console.log("sendRobot123");
 
   const webhook = $("#_qw-robot-webhook").val();
   const strText = $("#_qw-robot-text").val();
@@ -171,5 +171,6 @@ const sendRobot = async () => {
   // });
 
   const res = await fetchPOST(webhook, data);
+  console.log("1111", res);
   return res;
 };

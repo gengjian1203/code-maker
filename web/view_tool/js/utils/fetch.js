@@ -12,7 +12,8 @@ const fetchGET = async (url) => {
       jsonpCallback: "callback", // 自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名
       timeout: 20000,
       contentType: "application/json; charset=utf-8",
-      success: (res) => {
+      complete: (res) => {
+        console.log("fetchGET", res);
         resolve(res);
       },
     });
@@ -29,11 +30,9 @@ const fetchPOST = async (url, data) => {
       data: data,
       type: "POST",
       timeout: 20000,
-      success: (res) => {
-        resolve(res);
-      },
       complete: (res) => {
         console.log("fetchPOST", res);
+        resolve(res);
       },
     });
   });

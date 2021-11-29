@@ -9,11 +9,11 @@ const arrConfigNavList = [
     idPage: "_page-css",
     title: "常用CSS",
   },
-  // {
-  //   id: "_nav-js",
-  //   idPage: "_page-js",
-  //   title: "常用JS",
-  // },
+  {
+    id: "_nav-js",
+    idPage: "_page-js",
+    title: "常用JS",
+  },
   {
     id: "_nav-qw-api",
     idPage: "_page-qw-api",

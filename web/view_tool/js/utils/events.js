@@ -107,8 +107,8 @@ const handleCityMultiBtnClick = async () => {
  * 点击机器人发消息按钮
  */
 const handleQWRobotBtnClick = async () => {
-  console.log("handleQWRobotBtnClick");
   const res = await sendRobot();
+  console.log("handleQWRobotBtnClick", res);
 };
 
 // 注册静态元素事件

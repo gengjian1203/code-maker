@@ -32,9 +32,7 @@ const initPage = () => {
 const initNav = () => {
   $("#_page-nav").empty();
   arrConfigNavList.forEach((item) => {
-    $("#_page-nav").append(
-      `<li class='flex-center-h nav-item' id='${item.id}'>${item.title}</li>`
-    );
+    $("#_page-nav").append(`<li id='${item.id}'><a>${item.title}</a></li>`);
     $(`#${item.id}`).bind("click", item, handleNavItemClick);
   });
   showPageContent();

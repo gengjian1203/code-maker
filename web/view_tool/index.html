@@ -1,8 +1,13 @@
 <html>
   <head>
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"
+    />
     <meta charset="UTF-8" />
     <title>常用工具页面</title>
+    <link rel="stylesheet" href="./css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="./css/bootstrap.min.css" />
     <link rel="stylesheet" href="./css/base.css" />
     <link rel="stylesheet" href="./css/index.css" />
     <!-- <link
@@ -19,11 +24,23 @@
   <body>
     <div class="page-wrap" id="_page">
       <!-- 顶部导航 -->
-      <div class="flex-between-h page-nav" id="_page-nav"></div>
+      <nav
+        class="navbar navbar-inverse navbar-default navbar-wrap"
+        role="navigation"
+      >
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand">常用工具页面</a>
+          </div>
+          <div>
+            <ul class="nav navbar-nav" id="_page-nav"></ul>
+          </div>
+        </div>
+      </nav>
       <!-- 主页面 -->
       <div class="page-content-wrap">
         <!-- 常用工具 -->
-        <div class="flex-start-v page-content" id="_page-tool">
+        <div class="flex-start-v page-content fade" id="_page-tool">
           <!-- 时间戳相关 -->
           <div class="flex-start-v content-card">
             <div class="flex-start-h content-card-item">
@@ -36,7 +53,10 @@
                 id="_timestamp-input"
                 placeholder="1638108325790"
               />
-              <button class="content-card-item-button" id="_timestamp-btn">
+              <button
+                class="btn btn-primary content-card-item-button"
+                id="_timestamp-btn"
+              >
                 转换
               </button>
             </div>
@@ -65,7 +85,10 @@
                 placeholder="南京"
                 value="南京"
               />
-              <button class="content-card-item-button" id="_city-one-btn">
+              <button
+                class="btn btn-primary content-card-item-button"
+                id="_city-one-btn"
+              >
                 查询
               </button>
             </div>
@@ -88,7 +111,10 @@
                 placeholder="['南京','三亚','马鞍山','台南','镇江']"
                 value="['南京','三亚','马鞍山','台南','镇江']"
               />
-              <button class="content-card-item-button" id="_city-multi-btn">
+              <button
+                class="btn btn-primary content-card-item-button"
+                id="_city-multi-btn"
+              >
                 查询
               </button>
             </div>
@@ -102,7 +128,7 @@
           </div>
         </div>
         <!-- 主页面 常用CSS -->
-        <div class="flex-start-v page-content" id="_page-css">
+        <div class="flex-start-v page-content fade" id="_page-css">
           <pre>
             .text-ellipsis {
               display: block;
@@ -112,8 +138,31 @@
             }
           </pre>
         </div>
+        <!-- 主页面 常用JS -->
+        <div class="flex-start-v page-content fade" id="_page-js">
+          <pre>
+            let time = 0
+            const showTime = (target, YYYY, MM, DD, hh = 18, mm = 30, ss) => {
+              const d2 = new Date(YYYY, MM - 1, DD, hh, mm, ss);
+              const d0 = new Date();
+              let ts = d2 - d0;
+              if (ts > 0) {
+                const d = Math.floor(ts / 86400000)
+                ts = ts % 8640000
+                const h = Math.floor(ts / 3600000);
+                const m = Math.floor((ts / 60000) % 60);
+                const s = Math.floor((ts / 1000) % 60);
+                console.log(`距离${target}，还剩${d}天${h}小时${m}分${s}秒`);
+              }
+            }
+            time = setInterval(() => {showTime('过年', 2022, 2, 1, 00, 00, 00)}, 1000)
+          </pre>
+          <pre>
+            clearInterval(time)
+          </pre>
+        </div>
         <!-- 主页面 企微API -->
-        <div class="flex-start-v page-content" id="_page-qw-api">
+        <div class="flex-start-v page-content fade" id="_page-qw-api">
           <div class="flex-start-v content-card">
             <div class="flex-start-h content-card-item">
               <div class="content-card-item-title">企微机器人</div>
@@ -145,9 +194,21 @@
               />
             </div>
             <div class="flex-start-h content-card-item">
-              <button class="content-card-item-button" id="_qw-robot-btn">
+              <button
+                class="btn btn-primary content-card-item-button"
+                id="_qw-robot-btn"
+              >
                 发送
               </button>
+            </div>
+            <!-- 弹窗 -->
+            <div id="_qw-robot-alert-success" class="alert alert-success">
+              <a href="#" class="close" data-dismiss="alert">&times;</a>
+              <strong>成功！</strong>发送消息成功。
+            </div>
+            <div id="_qw-robot-alert-warning" class="alert alert-warning">
+              <a href="#" class="close" data-dismiss="alert">&times;</a>
+              <strong>警告！</strong>发送消息失败。
             </div>
           </div>
         </div>
@@ -156,10 +217,11 @@
   </body>
   <script src="./js/lib/jquery-3.6.0.min.js"></script>
   <script src="./js/lib/vconsole.min.js"></script>
+  <script src="./js/lib/bootstrap.min.js"></script>
   <script src="./js/config/index.js"></script>
+  <script src="./js/utils/fetch.js"></script>
   <script src="./js/utils/api.js"></script>
   <script src="./js/utils/events.js"></script>
-  <script src="./js/utils/fetch.js"></script>
   <script src="./js/utils/kits.js"></script>
   <script src="./js/utils/tools.js"></script>
   <script src="./js/index.js" type="module"></script>

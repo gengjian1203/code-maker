@@ -5,43 +5,33 @@ html {
 }
 
 body {
+  position: relative;
   font-size: 0.14rem;
 }
 
-.page-nav {
+.navbar-wrap {
   position: fixed;
   top: 0;
   z-index: 1;
   width: 100%;
-  height: 0.32rem;
-  background-color: #6cacf8;
-}
-
-.page-nav .nav-item {
-  height: 100%;
-  flex: 1 1 auto;
-
-  color: #ffffff;
-  font-size: 0.16rem;
-  line-height: 0.32rem;
-}
-
-.page-nav .nav-item:hover {
   cursor: pointer;
-  color: #6cacf8;
-  background-image: linear-gradient(90deg, #6cacf8, #ffffff, #6cacf8);
 }
 
 .page-content-wrap {
   position: relative;
   box-sizing: border-box;
-  padding-top: 0.32rem;
+  margin-top: 0.5rem;
   min-width: 100vw;
   min-height: 100vh;
   background-color: #e0e0e0;
 }
 
 .page-content-wrap .page-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  /* display: none; */
   box-sizing: border-box;
   padding: 0.12rem;
   width: 100%;
@@ -111,7 +101,6 @@ body {
   /* flex: 1 1 auto; */
   width: 1rem;
   position: relative;
-  color: #313131;
 }
 
 .page-content .content-card .content-card-item .content-card-item-text {
