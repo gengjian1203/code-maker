@@ -8,6 +8,7 @@
     <title>常用工具页面</title>
     <link rel="stylesheet" href="./css/bootstrap-theme.min.css" />
     <link rel="stylesheet" href="./css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./css/prettify.min.css" />
     <link rel="stylesheet" href="./css/base.css" />
     <link rel="stylesheet" href="./css/index.css" />
     <!-- <link
@@ -30,7 +31,7 @@
       >
         <div class="container-fluid">
           <div class="navbar-header">
-            <a class="navbar-brand">常用工具页面</a>
+            <a class="navbar-brand">Code Maker</a>
           </div>
           <div>
             <ul class="nav navbar-nav" id="_page-nav"></ul>
@@ -40,7 +41,7 @@
       <!-- 主页面 -->
       <div class="page-content-wrap">
         <!-- 常用工具 -->
-        <div class="flex-start-v page-content fade" id="_page-tool">
+        <div class="flex-start-v page-content" id="_page-tool">
           <!-- 时间戳相关 -->
           <div class="flex-start-v content-card">
             <div class="flex-start-h content-card-item">
@@ -128,41 +129,11 @@
           </div>
         </div>
         <!-- 主页面 常用CSS -->
-        <div class="flex-start-v page-content fade" id="_page-css">
-          <pre>
-            .text-ellipsis {
-              display: block;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              white-space: nowrap;
-            }
-          </pre>
-        </div>
+        <div class="flex-start-v page-content" id="_page-css"></div>
         <!-- 主页面 常用JS -->
-        <div class="flex-start-v page-content fade" id="_page-js">
-          <pre>
-            let time = 0
-            const showTime = (target, YYYY, MM, DD, hh = 18, mm = 30, ss) => {
-              const d2 = new Date(YYYY, MM - 1, DD, hh, mm, ss);
-              const d0 = new Date();
-              let ts = d2 - d0;
-              if (ts > 0) {
-                const d = Math.floor(ts / 86400000)
-                ts = ts % 8640000
-                const h = Math.floor(ts / 3600000);
-                const m = Math.floor((ts / 60000) % 60);
-                const s = Math.floor((ts / 1000) % 60);
-                console.log(`距离${target}，还剩${d}天${h}小时${m}分${s}秒`);
-              }
-            }
-            time = setInterval(() => {showTime('过年', 2022, 2, 1, 00, 00, 00)}, 1000)
-          </pre>
-          <pre>
-            clearInterval(time)
-          </pre>
-        </div>
+        <div class="flex-start-v page-content" id="_page-js"></div>
         <!-- 主页面 企微API -->
-        <div class="flex-start-v page-content fade" id="_page-qw-api">
+        <div class="flex-start-v page-content" id="_page-qw-api">
           <div class="flex-start-v content-card">
             <div class="flex-start-h content-card-item">
               <div class="content-card-item-title">企微机器人</div>
@@ -218,6 +189,9 @@
   <script src="./js/lib/jquery-3.6.0.min.js"></script>
   <script src="./js/lib/vconsole.min.js"></script>
   <script src="./js/lib/bootstrap.min.js"></script>
+  <script src="./js/lib/prettify.min.js"></script>
+  <script src="./js/config/arrPageCssList.js"></script>
+  <script src="./js/config/arrPageJsList.js"></script>
   <script src="./js/config/index.js"></script>
   <script src="./js/utils/fetch.js"></script>
   <script src="./js/utils/api.js"></script>

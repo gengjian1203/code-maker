@@ -1,3 +1,24 @@
+/* 覆盖代码高亮以及行数样式 */
+.prettyprint ol.linenums > li {
+  list-style-type: decimal;
+}
+
+/* White background color for all even-numbered lines */
+li.L0,
+li.L2,
+li.L4,
+li.L6,
+li.L8 {
+  background-color: #fff;
+} /* Light-gray background color for all odd-numbered lines */
+li.L1,
+li.L3,
+li.L5,
+li.L7,
+li.L9 {
+  background-color: #eee;
+}
+
 /* 主题色 #6cacf8 */
 html {
   background-color: white;
@@ -7,23 +28,26 @@ html {
 body {
   position: relative;
   font-size: 0.14rem;
+  display: flex;
+}
+
+.page-wrap {
+  background-color: #e0e0e0;
 }
 
 .navbar-wrap {
-  position: fixed;
+  cursor: pointer;
+  position: sticky;
   top: 0;
   z-index: 1;
+  margin-bottom: 0;
   width: 100%;
-  cursor: pointer;
 }
 
 .page-content-wrap {
   position: relative;
   box-sizing: border-box;
-  margin-top: 0.5rem;
   min-width: 100vw;
-  min-height: 100vh;
-  background-color: #e0e0e0;
 }
 
 .page-content-wrap .page-content {
@@ -31,10 +55,11 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  /* display: none; */
+  display: none;
   box-sizing: border-box;
   padding: 0.12rem;
   width: 100%;
+  background-color: #e0e0e0;
 }
 
 .page-content .content-card {
@@ -55,6 +80,8 @@ body {
 }
 
 .page-content .content-card .content-card-item {
+  box-sizing: border-box;
+  padding-right: 0.12rem;
   margin-bottom: 0.08rem;
   width: 100%;
   min-height: 0.24rem;
@@ -62,10 +89,15 @@ body {
 }
 
 .page-content .content-card .content-card-item .content-card-item-title {
-  margin-left: 0.12rem;
+  box-sizing: border-box;
+  white-space: nowrap;
+  padding-left: 0.12rem;
   position: relative;
   color: #313131;
   font-weight: 600;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .page-content
@@ -75,15 +107,16 @@ body {
   content: "";
   position: absolute;
   top: 0;
-  left: -0.12rem;
+  left: 0;
   width: 0.06rem;
   height: 0.24rem;
   border-radius: 0 0.04rem 0.04rem 0;
   background-color: #6cacf8;
-  /* background-image: linear-gradient(90deg, red, 1%, "transparent"); */
 }
 
 .page-content .content-card .content-card-item .content-card-item-label {
+  flex: 0 0 auto;
+  white-space: nowrap;
   margin-right: 0.12rem;
   width: 1rem;
   position: relative;
@@ -91,14 +124,17 @@ body {
 }
 
 .page-content .content-card .content-card-item .content-card-item-input {
+  flex: 1 1 auto;
+  white-space: nowrap;
   margin-right: 0.12rem;
   width: 4rem;
+  min-width: 0;
   position: relative;
   color: #313131;
 }
 
 .page-content .content-card .content-card-item .content-card-item-button {
-  /* flex: 1 1 auto; */
+  flex: 0 0 auto;
   width: 1rem;
   position: relative;
 }
@@ -114,4 +150,28 @@ body {
   flex: 1 1 auto;
   position: relative;
   color: #313131;
+}
+
+.page-content .content-card .content-card-code {
+  flex: 1 0 auto;
+  width: 0;
+}
+
+.page-content .content-card .content-card-code .content-card-item {
+  white-space: nowrap;
+  align-items: center;
+  width: 100%;
+}
+
+.page-content .content-card .content-card-code .content-card-item .code-copy {
+  cursor: pointer;
+  white-space: nowrap;
+  align-items: center;
+  color: #6cacf8;
+  text-decoration: underline;
+}
+
+.page-content .content-card .content-card-preview {
+  flex: 1 0 auto;
+  width: 0;
 }
