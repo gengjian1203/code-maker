@@ -102,7 +102,7 @@
               <div class="content-card-item-text" id="_city-one-province"></div>
             </div>
 
-            <div class="content-card-line"></div>
+            <div class="content-card-line-h"></div>
 
             <div class="flex-start-h content-card-item">
               <div class="content-card-item-label">多个地址</div>
@@ -147,7 +147,7 @@
               />
             </div>
             <div class="flex-start-h content-card-item">
-              <div class="content-card-item-label">文字内容</div>
+              <div class="content-card-item-label">标题内容</div>
               <input
                 class="content-card-item-input"
                 id="_qw-robot-text"
@@ -172,21 +172,26 @@
                 发送
               </button>
             </div>
-            <!-- 弹窗 -->
-            <div id="_qw-robot-alert-success" class="alert alert-success">
-              <a href="#" class="close" data-dismiss="alert">&times;</a>
-              <strong>成功！</strong>发送消息成功。
-            </div>
-            <div id="_qw-robot-alert-warning" class="alert alert-warning">
-              <a href="#" class="close" data-dismiss="alert">&times;</a>
-              <strong>警告！</strong>发送消息失败。
-            </div>
           </div>
+        </div>
+        <!-- 提示弹窗 -->
+        <div id="_global-tip-success" class="alert alert-success tip-alert">
+          <strong id="_global-tip-success-text"></strong>
+        </div>
+        <div id="_global-tip-info" class="alert alert-info tip-alert">
+          <strong id="_global-tip-info-text"></strong>
+        </div>
+        <div id="_global-tip-warning" class="alert alert-warning tip-alert">
+          <strong id="_global-tip-warning-text"></strong>
+        </div>
+        <div id="_global-tip-danger" class="alert alert-danger tip-alert">
+          <strong id="_global-tip-danger-text"></strong>
         </div>
       </div>
     </div>
   </body>
   <script src="./js/lib/jquery-3.6.0.min.js"></script>
+  <script src="./js/lib/axios.min.js"></script>
   <script src="./js/lib/vconsole.min.js"></script>
   <script src="./js/lib/bootstrap.min.js"></script>
   <script src="./js/lib/prettify.min.js"></script>

@@ -104,14 +104,23 @@ const handleCityMultiBtnClick = async () => {
 };
 
 // 点击代码复制
-const handleCodeCopyClick = async (item) => {};
+const handleCodeCopyClick = async (item) => {
+  const { data = "" } = item || {};
+  console.log("handleCodeCopyClick", data);
+  setClipboardData(data.code);
+  showTip("复制成功");
+};
 
 /**
  * 点击机器人发消息按钮
  */
 const handleQWRobotBtnClick = async () => {
-  const res = await sendRobot();
-  console.log("handleQWRobotBtnClick", res);
+  try {
+    const res = await sendRobot();
+    console.log("handleQWRobotBtnClick", res);
+  } catch (e) {
+    console.log("handleQWRobotBtnClick e", e);
+  }
 };
 
 // 注册静态元素事件

@@ -51,11 +51,14 @@ const getProvinceFromCity = async (strCity) => {
  * 发送机器人消息
  */
 const sendRobot = async () => {
-  console.log("sendRobot123");
-
   const webhook = $("#_qw-robot-webhook").val();
   const strText = $("#_qw-robot-text").val();
   const strImage = $("#_qw-robot-image").val();
+
+  if (!webhook) {
+    showTip("参数缺失", "danger");
+    return false;
+  }
 
   const data = JSON.stringify({
     msgtype: "news",
@@ -171,6 +174,6 @@ const sendRobot = async () => {
   // });
 
   const res = await fetchPOST(webhook, data);
-  console.log("1111", res);
+  showTip("已发送");
   return res;
 };

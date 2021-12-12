@@ -5,39 +5,67 @@ let config = {
 };
 
 // 渲染代码卡片
-const renderCardCode = (arrList) => {
+const renderCardCode = (arrList = [], langPage = "") => {
   arrList.forEach((item, index) => {
-    const domCode = `
-      <div class="flex-start-v content-card-code">
+    const domCode =
+      item &&
+      item.content &&
+      item.content
+        .map((itemContent, indexContent) => {
+          return `
+        ${
+          itemContent.title &&
+          `<div class="flex-between-h content-card-item" key="content-card-header-${indexContent}">
+            <div class="content-card-item-title">${itemContent.title}</div>
+          </div>`
+        }
         <div class="flex-between-h content-card-item">
-          <div class="content-card-item-title">${item.title}</div>
-          <div class="code-copy" id="_code-copy-${
-            item.lang
-          }-${index}">复制</div>
+          <pre class="prettyprint linenums Lang-${
+            itemContent.lang
+          } content-card-item-pre" key="content-card-pre-${indexContent}">
+            ${formatCodeContent(itemContent.code)}
+          </pre>
+          <div class="code-copy" id="_code-copy-${langPage}-${index}-${indexContent}">复制</div>
         </div>
-        <pre class="prettyprint linenums Lang-${item.lang}">
-          ${formatCodeContent(item.content)}
-        </pre>
-      </div>
-    `;
+      `;
+        })
+        .join("\n        ");
+
     const domPreview = item.isPreview
       ? `
         <div class="flex-start-v content-card-preview">
-          Preview...
+          ${item.content
+            .map((itemContent) => {
+              return itemContent.code;
+            })
+            .join("\n        ")}
         </div>
       `
       : ``;
 
-    $(`#_page-${item.lang}`).append(`
+    $(`#_page-${langPage}`).append(`
       <div class="flex-between-h content-card">
-        ${domCode}${domPreview}
+        <div class="flex-start-v content-card-code">
+          ${domCode}
+        </div>
+        ${domPreview}
       </div>
     `);
-    $(`#_code-copy-${item.lang}-${index}`).bind(
-      "click",
-      item,
-      handleCodeCopyClick
-    );
+  });
+};
+
+// 注册卡片事件
+const regCardCodeEventFunction = (arrList = [], langPage = "") => {
+  arrList.forEach((item, index) => {
+    item &&
+      item.content &&
+      item.content.map((itemContent, indexContent) => {
+        $(`#_code-copy-${langPage}-${index}-${indexContent}`).bind(
+          "click",
+          itemContent,
+          handleCodeCopyClick
+        );
+      });
   });
 };
 
@@ -77,16 +105,24 @@ const initNav = () => {
 
 // 初始化CSS示例代码分页
 const initPageCSS = () => {
-  renderCardCode(arrPageCssList);
+  renderCardCode(arrPageCssList, "css");
+  regCardCodeEventFunction(arrPageCssList, "css");
 };
 
 // 初始化JS示例代码分页
 const initPageJS = () => {
-  renderCardCode(arrPageJsList);
+  renderCardCode(arrPageJsList, "js");
+  regCardCodeEventFunction(arrPageJsList, "js");
 };
 
 window.onload = () => {
   console.log("hello view Tool1");
+
+  axios.defaults.withCredentials = true;
+  axios.defaults.crossDomain = true;
+  axios.defaults.headers.post["Content-Type"] =
+    "application/x-www-form-urlencoded";
+
   // alert("hello view Tool2");
   initConsole();
   initConfig();

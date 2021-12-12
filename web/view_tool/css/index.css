@@ -1,3 +1,12 @@
+/* 覆盖样式 */
+.prettyprint {
+  display: flex;
+}
+
+.linenums {
+  flex: 1;
+}
+
 /* 覆盖代码高亮以及行数样式 */
 .prettyprint ol.linenums > li {
   list-style-type: decimal;
@@ -35,6 +44,16 @@ body {
   background-color: #e0e0e0;
 }
 
+.tip-alert {
+  display: none;
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  width: 80%;
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+
 .navbar-wrap {
   cursor: pointer;
   position: sticky;
@@ -63,6 +82,7 @@ body {
 }
 
 .page-content .content-card {
+  position: relative;
   box-sizing: border-box;
   margin-bottom: 0.12rem;
   padding: 0.12rem;
@@ -71,7 +91,7 @@ body {
   border-radius: 0.04rem;
 }
 
-.page-content .content-card .content-card-line {
+.page-content .content-card .content-card-line-h {
   margin-bottom: 0.12rem;
   width: 100%;
   height: 2px;
@@ -79,13 +99,28 @@ body {
   background-color: #e0e0e0;
 }
 
+.page-content .content-card .content-card-line-v {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  margin: 0 0.06rem;
+  width: 2px;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+}
+
 .page-content .content-card .content-card-item {
+  position: relative;
   box-sizing: border-box;
   padding-right: 0.12rem;
   margin-bottom: 0.08rem;
   width: 100%;
   min-height: 0.24rem;
   line-height: 0.24rem;
+  white-space: nowrap;
 }
 
 .page-content .content-card .content-card-item .content-card-item-title {
@@ -157,21 +192,36 @@ body {
   width: 0;
 }
 
-.page-content .content-card .content-card-code .content-card-item {
-  white-space: nowrap;
-  align-items: center;
-  width: 100%;
-}
-
-.page-content .content-card .content-card-code .content-card-item .code-copy {
+.page-content .content-card .content-card-item .code-copy {
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  right: 0.12rem;
+  padding: 0 0.08rem;
   cursor: pointer;
   white-space: nowrap;
   align-items: center;
+  border-radius: 0.04rem;
   color: #6cacf8;
   text-decoration: underline;
 }
 
+.page-content .content-card .content-card-item .code-copy:hover {
+  color: #ffffff;
+  background-color: #6cacf8;
+}
+
+.page-content .content-card .content-card-item .content-card-item-pre {
+  position: relative;
+  max-height: 1.6rem;
+}
+
 .page-content .content-card .content-card-preview {
+  margin-left: 0.12rem;
+  position: relative;
   flex: 1 0 auto;
   width: 0;
+  height: 100%;
+
+  align-items: center;
 }
