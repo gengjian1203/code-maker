@@ -111,20 +111,291 @@ const handleCodeCopyClick = async (item) => {
   showTip("复制成功");
 };
 
+// 企微机器人切换msgtype的radio
+const handleQWRobotRadioMsgtypeChange = async (e) => {
+  console.log("handleQWRobotRadioMsgtypeChange", e);
+  const { id = "" } = (e && e.data) || {};
+  showQWRobotMsgtype(id);
+};
+
 /**
  * 点击机器人发消息按钮
  */
-const handleQWRobotBtnClick = async () => {
+const handleQWRobotSubmit = async (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  const resForm = router2Params(serializeForm("_qw-robot-form"));
+  console.log("handleQWRobotSubmit", resForm);
+  const {
+    params: {
+      webhook = "",
+      msgtype = "",
+      content = "",
+      base64 = "",
+      md5 = "",
+      title = "",
+      description = "",
+      url = "",
+      picurl = "",
+      media_id = "",
+      card_type = "",
+    },
+  } = resForm;
+
+  console.log(
+    "handleQWRobotSubmit",
+    `${msgtype}-${card_type}`,
+    " - ",
+    webhook,
+    msgtype,
+    content,
+    base64,
+    md5,
+    title,
+    description,
+    url,
+    picurl,
+    media_id
+  );
+
+  if (!webhook || !msgtype) {
+    showTip("参数缺失", "danger");
+    return false;
+  }
+
+  let params = null;
+
+  switch (msgtype) {
+    case "text": {
+      params = {
+        webhook,
+        data: JSON.stringify({
+          msgtype: msgtype,
+          text: {
+            content: content,
+          },
+        }),
+      };
+      break;
+    }
+    case "image": {
+      params = {
+        webhook,
+        data: JSON.stringify({
+          msgtype: msgtype,
+          image: {
+            base64: base64,
+            md5: md5,
+          },
+        }),
+      };
+      break;
+    }
+    case "news": {
+      params = {
+        webhook,
+        data: JSON.stringify({
+          msgtype: msgtype,
+          news: {
+            articles: [
+              {
+                title: title,
+                description: description,
+                url: url,
+                picurl: picurl,
+              },
+            ],
+          },
+        }),
+      };
+      break;
+    }
+    case "file": {
+      params = {
+        webhook,
+        data: JSON.stringify({
+          msgtype: msgtype,
+          file: {
+            media_id: media_id,
+          },
+        }),
+      };
+      break;
+    }
+    case "template_card": {
+      if (card_type === "text_notice") {
+        params = {
+          webhook,
+          data: JSON.stringify({
+            msgtype: msgtype,
+            template_card: {
+              card_type: card_type,
+              source: {
+                icon_url:
+                  "https://wework.qpic.cn/wwpic/252813_jOfDHtcISzuodLa_1629280209/0",
+                desc: "企业微信",
+                desc_color: 0,
+              },
+              main_title: {
+                title: "欢迎使用企业微信",
+                desc: "您的好友正在邀请您加入企业微信",
+              },
+              emphasis_content: {
+                title: "100",
+                desc: "数据含义",
+              },
+              quote_area: {
+                type: 1,
+                url: "https://work.weixin.qq.com/?from=openApi",
+                appid: "APPID",
+                pagepath: "PAGEPATH",
+                title: "引用文本标题",
+                quote_text:
+                  "Jack：企业微信真的很好用~\nBalian：超级好的一款软件！",
+              },
+              sub_title_text: "下载企业微信还能抢红包！",
+              horizontal_content_list: [
+                {
+                  keyname: "邀请人",
+                  value: "张三",
+                },
+                {
+                  keyname: "企微官网",
+                  value: "点击访问",
+                  type: 1,
+                  url: "https://work.weixin.qq.com/?from=openApi",
+                },
+              ],
+              jump_list: [
+                {
+                  type: 1,
+                  url: "https://work.weixin.qq.com/?from=openApi",
+                  title: "企业微信官网",
+                },
+                // {
+                //   type: 2,
+                //   appid: "APPID",
+                //   pagepath: "PAGEPATH",
+                //   title: "跳转小程序",
+                // },
+              ],
+              card_action: {
+                type: 1,
+                url: "https://work.weixin.qq.com/?from=openApi",
+                appid: "APPID",
+                pagepath: "PAGEPATH",
+              },
+            },
+          }),
+        };
+      } else if (card_type === "news_notice") {
+        params = {
+          webhook,
+          data: JSON.stringify({
+            msgtype: msgtype,
+            template_card: {
+              card_type: card_type,
+              source: {
+                icon_url:
+                  "https://wework.qpic.cn/wwpic/252813_jOfDHtcISzuodLa_1629280209/0",
+                desc: "企业微信",
+                desc_color: 0,
+              },
+              main_title: {
+                title: "欢迎使用企业微信",
+                desc: "您的好友正在邀请您加入企业微信",
+              },
+              card_image: {
+                url: "https://wework.qpic.cn/wwpic/354393_4zpkKXd7SrGMvfg_1629280616/0",
+                aspect_ratio: 2.25,
+              },
+              image_text_area: {
+                type: 1,
+                url: "https://work.weixin.qq.com",
+                title: "欢迎使用企业微信",
+                desc: "您的好友正在邀请您加入企业微信",
+                image_url:
+                  "https://wework.qpic.cn/wwpic/354393_4zpkKXd7SrGMvfg_1629280616/0",
+              },
+              quote_area: {
+                type: 1,
+                url: "https://work.weixin.qq.com/?from=openApi",
+                appid: "APPID",
+                pagepath: "PAGEPATH",
+                title: "引用文本标题",
+                quote_text:
+                  "Jack：企业微信真的很好用~\nBalian：超级好的一款软件！",
+              },
+              vertical_content_list: [
+                {
+                  title: "惊喜红包等你来拿",
+                  desc: "下载企业微信还能抢红包！",
+                },
+              ],
+              horizontal_content_list: [
+                {
+                  keyname: "邀请人",
+                  value: "张三",
+                },
+                {
+                  keyname: "企微官网",
+                  value: "点击访问",
+                  type: 1,
+                  url: "https://work.weixin.qq.com/?from=openApi",
+                },
+                // {
+                //   keyname: "企微下载",
+                //   value: "企业微信.apk",
+                //   type: 2,
+                //   media_id: "MEDIAID",
+                // },
+              ],
+              jump_list: [
+                {
+                  type: 1,
+                  url: "https://work.weixin.qq.com/?from=openApi",
+                  title: "企业微信官网",
+                },
+                // {
+                //   type: 2,
+                //   appid: "APPID",
+                //   pagepath: "PAGEPATH",
+                //   title: "跳转小程序",
+                // },
+              ],
+              card_action: {
+                type: 1,
+                url: "https://work.weixin.qq.com/?from=openApi",
+                appid: "APPID",
+                pagepath: "PAGEPATH",
+              },
+            },
+          }),
+        };
+      }
+      break;
+    }
+    default: {
+      break;
+    }
+  }
+
   try {
-    const res = await sendRobot();
-    console.log("handleQWRobotBtnClick", res);
-  } catch (e) {
-    console.log("handleQWRobotBtnClick e", e);
+    if (params) {
+      showTip("发送消息");
+      const res = await sendRobot(params);
+    } else {
+      showTip("参数非法", "danger");
+    }
+    console.log("handleQWRobotSubmit", res);
+  } catch (err) {
+    console.log("handleQWRobotSubmit e", err);
   }
 };
 
 // 注册静态元素事件
 const regEventFunction = () => {
+  // 点击事件
   const arrEventClickList = [].concat(
     // 时间相关
     [
@@ -143,18 +414,60 @@ const regEventFunction = () => {
         id: "_city-multi-btn",
         callback: handleCityMultiBtnClick,
       },
-    ],
-    // 企微机器人相关
+    ]
+  );
+
+  // 改变事件
+  const arrEventChangeList = [].concat(
+    //
     [
       {
-        id: "_qw-robot-btn",
-        callback: handleQWRobotBtnClick,
+        id: "_qw-robot-radio-msgtype-text",
+        callback: handleQWRobotRadioMsgtypeChange,
+      },
+      {
+        id: "_qw-robot-radio-msgtype-image",
+        callback: handleQWRobotRadioMsgtypeChange,
+      },
+      {
+        id: "_qw-robot-radio-msgtype-news",
+        callback: handleQWRobotRadioMsgtypeChange,
+      },
+      {
+        id: "_qw-robot-radio-msgtype-file",
+        callback: handleQWRobotRadioMsgtypeChange,
+      },
+      {
+        id: "_qw-robot-radio-msgtype-template_card",
+        callback: handleQWRobotRadioMsgtypeChange,
       },
     ]
   );
-  console.log("regEventFunction", arrEventClickList);
 
+  // 提交事件
+  const arrEventSubmitList = [].concat(
+    // 企微机器人相关
+    [
+      {
+        id: "_qw-robot-form",
+        callback: handleQWRobotSubmit,
+      },
+    ]
+  );
+
+  console.log(
+    "regEventFunction",
+    arrEventClickList,
+    arrEventSubmitList,
+    arrEventChangeList
+  );
   arrEventClickList.forEach((item) => {
     $(`#${item.id}`).bind("click", item, item.callback);
+  });
+  arrEventChangeList.forEach((item) => {
+    $(`#${item.id}`).bind("change", item, item.callback);
+  });
+  arrEventSubmitList.forEach((item) => {
+    $(`#${item.id}`).bind("submit", item, item.callback);
   });
 };

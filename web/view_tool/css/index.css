@@ -40,6 +40,10 @@ body {
   display: flex;
 }
 
+.display-none {
+  display: none;
+}
+
 .page-wrap {
   background-color: #e0e0e0;
 }
@@ -121,6 +125,9 @@ body {
   min-height: 0.24rem;
   line-height: 0.24rem;
   white-space: nowrap;
+
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 .page-content .content-card .content-card-item .content-card-item-title {

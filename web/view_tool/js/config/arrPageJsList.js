@@ -191,4 +191,17 @@ const arrPageJsList = [
       },
     ],
   },
+  {
+    isPreview: false,
+    content: [
+      {
+        title: "阻止事件冒泡/默认事件行为",
+        lang: "js",
+        code: `
+          e.preventDefault();
+          e.stopPropagation();
+        `,
+      },
+    ],
+  },
 ];

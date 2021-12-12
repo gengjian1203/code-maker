@@ -20,7 +20,7 @@ const router2Params = (strRouter) => {
       if (nIndexParam >= 0) {
         const strParamKey = strItem.substring(0, nIndexParam);
         const strParamValue = strItem.slice(nIndexParam + 1);
-        objResultParam[strParamKey] = strParamValue;
+        objResultParam[strParamKey] = decodeURIComponent(strParamValue);
       }
     });
   }

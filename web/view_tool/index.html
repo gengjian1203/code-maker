@@ -134,7 +134,11 @@
         <div class="flex-start-v page-content" id="_page-js"></div>
         <!-- 主页面 企微API -->
         <div class="flex-start-v page-content" id="_page-qw-api">
-          <div class="flex-start-v content-card">
+          <form
+            class="flex-start-v content-card"
+            id="_qw-robot-form"
+            role="form"
+          >
             <div class="flex-start-h content-card-item">
               <div class="content-card-item-title">企微机器人</div>
             </div>
@@ -143,27 +147,201 @@
               <input
                 class="content-card-item-input"
                 id="_qw-robot-webhook"
+                name="webhook"
                 placeholder="https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"
               />
             </div>
+
             <div class="flex-start-h content-card-item">
+              <div class="content-card-item-label">消息类型</div>
+              <label class="radio-inline">
+                <input
+                  id="_qw-robot-radio-msgtype-text"
+                  type="radio"
+                  name="msgtype"
+                  value="text"
+                />
+                文本类型
+              </label>
+              <label class="radio-inline">
+                <input
+                  id="_qw-robot-radio-msgtype-image"
+                  type="radio"
+                  name="msgtype"
+                  value="image"
+                />
+                图片类型
+              </label>
+              <label class="radio-inline">
+                <input
+                  id="_qw-robot-radio-msgtype-news"
+                  type="radio"
+                  name="msgtype"
+                  value="news"
+                />
+                图文类型
+              </label>
+              <label class="radio-inline">
+                <input
+                  id="_qw-robot-radio-msgtype-file"
+                  type="radio"
+                  name="msgtype"
+                  value="file"
+                />
+                文件类型
+              </label>
+              <label class="radio-inline">
+                <input
+                  id="_qw-robot-radio-msgtype-template_card"
+                  type="radio"
+                  name="msgtype"
+                  value="template_card"
+                />
+                模版卡片类型
+              </label>
+            </div>
+
+            <div
+              class="flex-start-h content-card-item display-none"
+              id="_qw-robot-item-content"
+            >
+              <div class="content-card-item-label">文本内容</div>
+              <input
+                class="content-card-item-input"
+                id="_qw-robot-content"
+                placeholder="文本内容，最长不超过2048个字节，必须是utf8编码"
+                name="content"
+              />
+            </div>
+
+            <div
+              class="flex-start-h content-card-item display-none"
+              id="_qw-robot-item-base64"
+            >
+              <div class="content-card-item-label">base64编码</div>
+              <input
+                class="content-card-item-input"
+                id="_qw-robot-base64"
+                placeholder="图片内容的base64编码"
+                name="base64"
+              />
+            </div>
+
+            <div
+              class="flex-start-h content-card-item display-none"
+              id="_qw-robot-item-md5"
+            >
+              <div class="content-card-item-label">md5值</div>
+              <input
+                class="content-card-item-input"
+                id="_qw-robot-md5"
+                placeholder="图片内容（base64编码前）的md5值"
+                name="md5"
+              />
+            </div>
+
+            <div
+              class="flex-start-h content-card-item display-none"
+              id="_qw-robot-item-title"
+            >
               <div class="content-card-item-label">标题内容</div>
               <input
                 class="content-card-item-input"
-                id="_qw-robot-text"
-                placeholder="测试文字"
-                value="测试文字"
+                id="_qw-robot-title"
+                placeholder="标题，不超过128个字节，超过会自动截断"
+                name="title"
               />
             </div>
-            <div class="flex-start-h content-card-item">
+
+            <div
+              class="flex-start-h content-card-item display-none"
+              id="_qw-robot-item-description"
+            >
+              <div class="content-card-item-label">描述内容</div>
+              <input
+                class="content-card-item-input"
+                id="_qw-robot-description"
+                placeholder="描述，不超过512个字节，超过会自动截断"
+                name="description"
+              />
+            </div>
+
+            <div
+              class="flex-start-h content-card-item display-none"
+              id="_qw-robot-item-url"
+            >
+              <div class="content-card-item-label">跳转链接</div>
+              <input
+                class="content-card-item-input"
+                id="_qw-robot-url"
+                placeholder="点击后跳转的链接"
+                name="url"
+              />
+            </div>
+
+            <div
+              class="flex-start-h content-card-item display-none"
+              id="_qw-robot-item-media_id"
+            >
+              <div class="content-card-item-label">文件id</div>
+              <input
+                class="content-card-item-input"
+                id="_qw-robot-media_id"
+                placeholder="文件id，通过下文的文件上传接口获取"
+                name="media_id"
+              />
+            </div>
+
+            <div
+              class="flex-start-h content-card-item display-none"
+              id="_qw-robot-item-picurl"
+            >
+              <div class="content-card-item-label">图片链接</div>
+              <input
+                class="content-card-item-input"
+                id="_qw-robot-picurl"
+                placeholder="图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图 1068*455，小图150*150。"
+                name="picurl"
+              />
+            </div>
+
+            <div
+              class="flex-start-h content-card-item display-none"
+              id="_qw-robot-item-card_type"
+            >
+              <div class="content-card-item-label">模版卡片类型</div>
+              <label class="radio-inline">
+                <input
+                  id="_qw-robot-radio-card_type-text_notice"
+                  type="radio"
+                  name="card_type"
+                  value="text_notice"
+                />
+                文本通知模版卡片
+              </label>
+              <label class="radio-inline">
+                <input
+                  id="_qw-robot-radio-card_type-news_notice"
+                  type="radio"
+                  name="card_type"
+                  value="news_notice"
+                />
+                图文展示模版卡片
+              </label>
+            </div>
+
+            <div
+              class="flex-start-h content-card-item display-none"
+              id="_qw-robot-item-image"
+            >
               <div class="content-card-item-label">图片内容</div>
               <input
                 class="content-card-item-input"
                 id="_qw-robot-image"
                 placeholder="https://up.enterdesk.com/edpic/ec/ca/d8/eccad87a334d082b8ff200ae01157e44.jpg"
-                value="https://up.enterdesk.com/edpic/ec/ca/d8/eccad87a334d082b8ff200ae01157e44.jpg"
               />
             </div>
+
             <div class="flex-start-h content-card-item">
               <button
                 class="btn btn-primary content-card-item-button"
@@ -172,7 +350,7 @@
                 发送
               </button>
             </div>
-          </div>
+          </form>
         </div>
         <!-- 提示弹窗 -->
         <div id="_global-tip-success" class="alert alert-success tip-alert">

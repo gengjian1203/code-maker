@@ -75,7 +75,11 @@ const regCardCodeEventFunction = (arrList = [], langPage = "") => {
 // 注册调试区域
 const initConsole = () => {
   const vConsole = new VConsole();
-  console.log("vConsole", vConsole);
+  console.log(
+    "vConsole",
+    vConsole,
+    `https://prod-5gkxku5cdb510bb2-1259256375.tcloudbaseapp.com/view_tool/index.html?t=${new Date().getTime()}`
+  );
 };
 
 // 初始化页面
@@ -116,13 +120,7 @@ const initPageJS = () => {
 };
 
 window.onload = () => {
-  console.log("hello view Tool1");
-
-  axios.defaults.withCredentials = true;
-  axios.defaults.crossDomain = true;
-  axios.defaults.headers.post["Content-Type"] =
-    "application/x-www-form-urlencoded";
-
+  console.log("Hello View Tool");
   // alert("hello view Tool2");
   initConsole();
   initConfig();
