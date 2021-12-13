@@ -44,8 +44,22 @@ body {
   display: none;
 }
 
-.page-wrap {
-  background-color: #e0e0e0;
+.btn-copy,
+.btn-paste {
+  box-sizing: border-box;
+  padding: 0 0.08rem;
+  cursor: pointer;
+  white-space: nowrap;
+  align-items: center;
+  border-radius: 0.04rem;
+  color: #6cacf8;
+  text-decoration: underline;
+}
+
+.btn-copy:hover,
+.btn-paste:hover {
+  color: #ffffff;
+  background-color: #6cacf8;
 }
 
 .tip-alert {
@@ -56,6 +70,14 @@ body {
   width: 80%;
   text-align: center;
   transform: translate(-50%, -50%);
+}
+
+.flex-nowrap {
+  flex-wrap: nowrap !important;
+}
+
+.page-wrap {
+  background-color: #e0e0e0;
 }
 
 .navbar-wrap {
@@ -126,7 +148,7 @@ body {
   line-height: 0.24rem;
   white-space: nowrap;
 
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
 }
 
@@ -156,10 +178,16 @@ body {
   background-color: #6cacf8;
 }
 
+.page-content .content-card .content-card-item .content-card-item-block {
+  margin-left: 0.12rem;
+  flex: 0 0 auto;
+  white-space: nowrap;
+  position: relative;
+}
+
 .page-content .content-card .content-card-item .content-card-item-label {
   flex: 0 0 auto;
   white-space: nowrap;
-  margin-right: 0.12rem;
   width: 1rem;
   position: relative;
   color: #313131;
@@ -168,7 +196,7 @@ body {
 .page-content .content-card .content-card-item .content-card-item-input {
   flex: 1 1 auto;
   white-space: nowrap;
-  margin-right: 0.12rem;
+  margin-left: 0.12rem;
   width: 4rem;
   min-width: 0;
   position: relative;
@@ -176,18 +204,21 @@ body {
 }
 
 .page-content .content-card .content-card-item .content-card-item-button {
+  margin-left: 0.12rem;
   flex: 0 0 auto;
   width: 1rem;
   position: relative;
 }
 
 .page-content .content-card .content-card-item .content-card-item-text {
+  margin-left: 0.12rem;
   flex: 1 1 auto;
   position: relative;
   color: #313131;
 }
 
 .page-content .content-card .content-card-item .content-card-item-multi {
+  margin-left: 0.12rem;
   width: 0;
   flex: 1 1 auto;
   position: relative;
@@ -200,22 +231,9 @@ body {
 }
 
 .page-content .content-card .content-card-item .code-copy {
-  box-sizing: border-box;
   position: absolute;
   top: 0;
   right: 0.12rem;
-  padding: 0 0.08rem;
-  cursor: pointer;
-  white-space: nowrap;
-  align-items: center;
-  border-radius: 0.04rem;
-  color: #6cacf8;
-  text-decoration: underline;
-}
-
-.page-content .content-card .content-card-item .code-copy:hover {
-  color: #ffffff;
-  background-color: #6cacf8;
 }
 
 .page-content .content-card .content-card-item .content-card-item-pre {

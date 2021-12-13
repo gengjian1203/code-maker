@@ -25,7 +25,7 @@ const renderCardCode = (arrList = [], langPage = "") => {
           } content-card-item-pre" key="content-card-pre-${indexContent}">
             ${formatCodeContent(itemContent.code)}
           </pre>
-          <div class="code-copy" id="_code-copy-${langPage}-${index}-${indexContent}">复制</div>
+          <div class="code-copy btn-copy" id="_code-copy-${langPage}-${index}-${indexContent}">复制</div>
         </div>
       `;
         })

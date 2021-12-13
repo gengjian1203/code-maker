@@ -17,6 +17,7 @@ export default (context: any) => {
       }
     );
     const pathTemplateFile = "./template/ViewTool/index.html";
+    // const pathTemplateFile = "./web/view_tool/index.html";
     panel.webview.html = getWebViewContent(context, pathTemplateFile);
   });
 };

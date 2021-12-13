@@ -111,6 +111,48 @@ const handleCodeCopyClick = async (item) => {
   showTip("复制成功");
 };
 
+// 点击复制
+const handleBtnCopyClick = async (e) => {
+  const data = e && e.data;
+  console.log("handleBtnCopyClick", data);
+  // const resCommand = document.execCommand("Copy"); // 执行浏览器复制命令
+  // if (resCommand) {
+  //   console.log("复制成功");
+  //   return true;
+  // } else {
+  //   console.error("复制失败", resCommand);
+  //   return false;
+  // }
+};
+
+// 点击粘贴
+const handleBtnPasteClick = async (e) => {
+  // const data = e && e.data;
+  // console.log(
+  //   "handleBtnPasteClick",
+  //   data,
+  //   window.clipboardData.getData("text")
+  // );
+  // $(`#${data}`).select();
+
+  navigator.clipboard
+    .readText()
+    .then((text) => {
+      console.log("Pasted content: ", text);
+    })
+    .catch((err) => {
+      console.error("Failed to read clipboard contents: ", err);
+    });
+  // const resCommand = document.execCommand("Paste"); // 执行浏览器复制命令
+  // if (resCommand) {
+  //   console.log("粘贴成功");
+  //   return true;
+  // } else {
+  //   console.error("粘贴失败", resCommand);
+  //   return false;
+  // }
+};
+
 // 企微机器人切换msgtype的radio
 const handleQWRobotRadioMsgtypeChange = async (e) => {
   console.log("handleQWRobotRadioMsgtypeChange", e);
@@ -455,6 +497,22 @@ const regEventFunction = () => {
     ]
   );
 
+  // 按钮复制粘贴事件
+  const arrEventCopyPasteList = [].concat([
+    "_timestamp-input",
+    "_city-one-input",
+    "_city-multi-input",
+    "_qw-robot-webhook",
+    "_qw-robot-content",
+    "_qw-robot-base64",
+    "_qw-robot-md5",
+    "_qw-robot-title",
+    "_qw-robot-description",
+    "_qw-robot-url",
+    "_qw-robot-media_id",
+    "_qw-robot-picurl",
+  ]);
+
   console.log(
     "regEventFunction",
     arrEventClickList,
@@ -469,5 +527,9 @@ const regEventFunction = () => {
   });
   arrEventSubmitList.forEach((item) => {
     $(`#${item.id}`).bind("submit", item, item.callback);
+  });
+  arrEventCopyPasteList.forEach((item) => {
+    $(`#${item}-copy`).bind("click", item, handleBtnCopyClick);
+    $(`#${item}-paste`).bind("click", item, handleBtnPasteClick);
   });
 };
