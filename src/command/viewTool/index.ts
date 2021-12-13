@@ -16,7 +16,15 @@ export default (context: any) => {
         retainContextWhenHidden: true, // webview被隐藏时保持状态，避免被重置
       }
     );
-    const pathTemplateFile = "./template/ViewTool/index.html";
+    let pathTemplateFile = "";
+    const local = vscode.workspace
+      .getConfiguration()
+      .get("code-maker.viewtool.local");
+    if (local) {
+      pathTemplateFile = "./web/view_tool/index.html";
+    } else {
+      pathTemplateFile = "./template/ViewTool/index.html";
+    }
     panel.webview.html = getWebViewContent(context, pathTemplateFile);
   });
 };
