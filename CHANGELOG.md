@@ -1,5 +1,13 @@
 # Change Log
 
+- V1.2.0
+
+  1. 优化：ViewTool 页面通过 Vue 框架重构。
+
+- V1.1.3
+
+  1. 优化：ViewTool 根据配置引用不同端页面。
+
 - V1.1.2
 
   1. 优化：ViewTool 常用工具页面时间戳引用。
