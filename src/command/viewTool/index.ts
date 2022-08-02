@@ -17,14 +17,9 @@ export default (context: any) => {
       }
     );
     let pathTemplateFile = "";
-    const local = vscode.workspace
-      .getConfiguration()
-      .get("code-maker.viewtool.local");
-    if (local) {
-      pathTemplateFile = "./web/view_tool/index.html";
-    } else {
-      pathTemplateFile = "./template/ViewTool/index.html";
-    }
+
+    pathTemplateFile = "./template/ViewTool/index.html";
+
     panel.webview.html = getWebViewContent(context, pathTemplateFile);
   });
 };

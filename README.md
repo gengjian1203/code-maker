@@ -1,7 +1,9 @@
 # Code Maker (代码助手)
 
 一款致力于可以工程化生成模板代码片段的 VSCode 开源插件。  
-如果有觉得还可以的同学帮忙点个小星星~  
+如果有觉得对你有所帮助，请帮忙点一个 Star。  
+如果你有什么建议或者问题，欢迎来提 Issues。
+
 [https://github.com/gengjian1203/code-maker](https://github.com/gengjian1203/code-maker)
 
 > 目前支持以下框架。（可通过插件设置页`settings.json`，搜索`code-maker`，调整本插件功能开关。）
@@ -64,6 +66,20 @@ tree -L 3 -I "node_modules|dist|build|out" > tree.md
 ```bash
 1. yarn install
 2. Run -> Run Without Debugging -> Debug AnyWay
+```
+
+> 令牌失效
+
+```bash
+1. vsce login username
+2. Y
+3. Input Personal Access Tokens
+```
+
+> 打包发布
+
+```bash
+vsce publish 1.3.0
 ```
 
 **Enjoy!**

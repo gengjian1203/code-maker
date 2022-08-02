@@ -1,7 +1,7 @@
 {
   "name": "code-maker",
   "displayName": "Code Maker",
-  "description": "一款可以工程化生成模板代码片段的VSCode插件",
+  "description": "一款可以自动化生成模板代码片段的VSCode插件",
   "keywords": [
     "code",
     "maker",
@@ -9,7 +9,7 @@
     "plugin",
     "taro"
   ],
-  "version": "1.2.0",
+  "version": "1.3.0",
   "publisher": "gengjian1203",
   "icon": "images/icon.png",
   "engines": {
@@ -170,15 +170,15 @@
           },
           "code-maker.taro.cssGrammar": {
             "type": "string",
-            "default": "kebab",
+            "default": "camel",
             "enum": [
-              "kebab",
-              "camel"
+              "camel",
+              "kebab"
             ],
             "markdownDescription": "`Taro`代码助手CSS命名语法",
             "enumDescriptions": [
-              "短横杠命名法",
-              "小驼峰命名法"
+              "小驼峰命名法",
+              "短横杠命名法"
             ]
           },
           "code-maker.taro.cssType": {
@@ -197,11 +197,6 @@
               "sass",
               "scss"
             ]
-          },
-          "code-maker.viewtool.local": {
-            "type": "boolean",
-            "default": true,
-            "markdownDescription": "是否使用本地viewtool"
           }
         }
       }

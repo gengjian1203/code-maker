@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import { arrFileExt } from "../../config";
-import { copyFile, openFile } from "../../utils";
+import { copyFile, getConfigurationName, openFile } from "../../utils";
 
 /**
  * 处理模板文件的回调：修改组件名称、类名
@@ -114,8 +114,12 @@ export default (context: any) => {
       const grammar = vscode.workspace
         .getConfiguration()
         .get("code-maker.taro.grammar");
+
+      const grammarDesc = getConfigurationName("code-maker.taro.grammar");
+      const cssGrammarDesc = getConfigurationName("code-maker.taro.cssGrammar");
+
       const options = {
-        prompt: "请输入新建Taro组件的名称: ",
+        prompt: `请输入新建Taro组件的名称: (${grammarDesc}+${cssGrammarDesc})`,
         placeHolder: "组件名(如：HelloWorld)",
       };
 
