@@ -9,7 +9,10 @@ import * as sidebar from "./service/sidebar";
 export function activate(context: vscode.ExtensionContext) {
   // Use the console to output diagnostic information (console.log) and errors (console.error)
   // This line of code will only be executed once when your extension is activated
-  console.log('Congratulations, your extension "code-maker" is now active!');
+  console.log(
+    'Congratulations, your extension "code-maker" is now active!',
+    Object.keys(commands).length
+  );
 
   // The command has been defined in the package.json file
   // Now provide the implementation of the command with registerCommand
@@ -21,7 +24,9 @@ export function activate(context: vscode.ExtensionContext) {
     new sidebar.subpackageTree()
   );
 
+  // 注册命令
   for (let key in commands) {
+    // console.log("reg", key);
     context.subscriptions.push(commands[key](context));
   }
 }

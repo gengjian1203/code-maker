@@ -1,5 +1,6 @@
+export { default as formatAutoClassNameCSS } from "./formatAutoClassNameCSS";
+export { default as formatChangeNameGrammar } from "./formatChangeNameGrammar";
 export { default as sidebarOpenChild } from "./sidebarOpenChild";
-export { default as taroAutoClassNameCSS } from "./taroAutoClassNameCSS";
 export { default as taroCreateComponent } from "./taroCreateComponent";
 export { default as taroCreatePage } from "./taroCreatePage";
 export { default as taroEditComponent } from "./taroEditComponent";
