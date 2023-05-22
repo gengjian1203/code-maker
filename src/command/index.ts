@@ -1,10 +1,11 @@
-export { default as formatAutoClassNameCSS } from "./formatAutoClassNameCSS";
-export { default as formatChangeNameGrammar } from "./formatChangeNameGrammar";
-export { default as sidebarOpenChild } from "./sidebarOpenChild";
-export { default as taroCreateComponent } from "./taroCreateComponent";
-export { default as taroCreatePage } from "./taroCreatePage";
-export { default as taroEditComponent } from "./taroEditComponent";
-export { default as taroEditPage } from "./taroEditPage";
-export { default as taroQuickOpenWorkspace } from "./taroQuickOpenWorkspace";
-export { default as taroUpdateIconfont } from "./taroUpdateIconfont";
-export { default as viewTool } from "./viewTool";
+import baseCloneTemplate from "./baseCloneTemplate";
+import baseOpenTemplate from "./baseOpenTemplate";
+import baseQuickOpenFolder from "./baseQuickOpenFolder";
+
+const commands: any = {
+  baseCloneTemplate,
+  baseOpenTemplate,
+  baseQuickOpenFolder,
+};
+
+export default commands;

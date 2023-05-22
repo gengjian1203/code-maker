@@ -1,7 +1,7 @@
 {
   "name": "code-maker",
   "displayName": "Code Maker",
-  "description": "一款可以自动化生成模板代码片段的VSCode插件",
+  "description": "一款可以工程化生成模板代码片段的VSCode插件",
   "keywords": [
     "code",
     "maker",
@@ -9,7 +9,7 @@
     "plugin",
     "taro"
   ],
-  "version": "1.3.1",
+  "version": "1.2.0",
   "publisher": "gengjian1203",
   "icon": "images/icon.png",
   "engines": {
@@ -23,61 +23,30 @@
     "url": "https://github.com/gengjian1203/code-maker"
   },
   "activationEvents": [
-    "onCommand:code-maker.format.AutoClassNameCSS",
-    "onCommand:code-maker.format.ChangeNameGrammar",
-    "onCommand:code-maker.taro.CreateComponent",
-    "onCommand:code-maker.taro.CreatePage",
-    "onCommand:code-maker.taro.EditComponent",
-    "onCommand:code-maker.taro.EditPage",
-    "onCommand:code-maker.taro.QuickOpenWorkspace",
-    "onCommand:code-maker.taro.UpdateIconfont",
-    "onCommand:code-maker.view.Tool",
-    "onView:coder-maker-tool"
+    "onCommand:code-maker.base.CloneTemplate",
+    "onCommand:code-maker.base.QuickOpenFolder",
+    "onCommand:code-maker.base.OpenTemplate"
   ],
   "main": "./dist/extension.js",
   "contributes": {
     "snippets": [
       {
-        "language": "typescriptreact",
+        "language": "javascript",
         "path": "./snippets/mapx.json"
       }
     ],
     "commands": [
       {
-        "command": "code-maker.format.AutoClassNameCSS",
-        "title": "自动构建className模板"
+        "command": "code-maker.base.CloneTemplate",
+        "title": "🎉 拉取模板代码"
       },
       {
-        "command": "code-maker.format.ChangeNameGrammar",
-        "title": "一键更改命名风格类型"
+        "command": "code-maker.base.QuickOpenFolder",
+        "title": "🎯 快速打开工作区"
       },
       {
-        "command": "code-maker.taro.CreateComponent",
-        "title": "创建Taro组件模板"
-      },
-      {
-        "command": "code-maker.taro.CreatePage",
-        "title": "创建Taro页面模板"
-      },
-      {
-        "command": "code-maker.taro.EditComponent",
-        "title": "编辑Taro组件模板"
-      },
-      {
-        "command": "code-maker.taro.EditPage",
-        "title": "编辑Taro页面模板"
-      },
-      {
-        "command": "code-maker.taro.QuickOpenWorkspace",
-        "title": "快速打开工作区"
-      },
-      {
-        "command": "code-maker.taro.UpdateIconfont",
-        "title": "更新Taro Iconfont引用样式"
-      },
-      {
-        "command": "code-maker.view.Tool",
-        "title": "常用工具页面",
+        "command": "code-maker.base.OpenTemplate",
+        "title": "查看本地模板代码",
         "icon": {
           "light": "./images/icon.svg",
           "dark": "./images/icon.svg"
@@ -87,139 +56,65 @@
     "menus": {
       "explorer/context": [
         {
-          "command": "code-maker.taro.CreateComponent",
-          "group": "navigation",
-          "when": "config.code-maker.taro.enabled && explorerResourceIsFolder == true"
+          "command": "code-maker.base.CloneTemplate",
+          "group": "navigation@1"
         },
         {
-          "command": "code-maker.taro.CreatePage",
-          "group": "navigation",
-          "when": "config.code-maker.taro.enabled && explorerResourceIsFolder == true"
-        },
-        {
-          "command": "code-maker.taro.QuickOpenWorkspace",
-          "group": "navigation",
-          "when": "config.code-maker.taro.enabled && explorerResourceIsFolder == true"
+          "command": "code-maker.base.QuickOpenFolder",
+          "group": "navigation@2",
+          "when": "explorerResourceIsFolder == true"
         }
       ],
-      "view/item/context": [
-        {
-          "command": "code-maker.taro.QuickOpenWorkspace",
-          "group": "navigation",
-          "when": "config.code-maker.taro.enabled && viewItem == customSidebarItem"
-        }
-      ],
-      "editor/context": [
-        {
-          "command": "code-maker.format.AutoClassNameCSS",
-          "group": "navigation",
-          "when": "config.code-maker.taro.enabled &&  resourceExtname == .js || resourceExtname == .ts || resourceExtname == .jsx || resourceExtname == .tsx"
-        }
-      ],
+      "view/item/context": [],
+      "editor/context": [],
       "editor/title": [
         {
-          "command": "code-maker.view.Tool",
-          "group": "navigation",
-          "when": "config.code-maker.taro.enabled "
+          "command": "code-maker.base.OpenTemplate",
+          "group": "navigation"
         }
       ],
       "editor/title/context": []
     },
-    "keybindings": [
-      {
-        "command": "code-maker.format.ChangeNameGrammar",
-        "key": "ctrl+.",
-        "mac": "cmd+.",
-        "when": "editorTextFocus"
-      }
-    ],
     "viewsContainers": {
-      "activitybar": [
-        {
-          "id": "coder-maker-sidebar",
-          "title": "Code Maker",
-          "icon": "./images/icon.svg"
-        }
-      ]
+      "activitybar": []
     },
-    "views": {
-      "coder-maker-sidebar": [
-        {
-          "id": "coder-maker-tool",
-          "name": "模块"
-        },
-        {
-          "id": "coder-maker-tool-bk",
-          "name": "模块备份"
-        }
-      ]
-    },
+    "views": {},
     "configuration": [
       {
         "type": "object",
         "title": "Code Maker",
         "properties": {
-          "code-maker.taro.enabled": {
-            "type": "boolean",
-            "default": true,
-            "markdownDescription": "开启`Taro`代码助手"
-          },
-          "code-maker.taro.grammar": {
+          "code-maker.config.gitTemplateUrl": {
+            "order": 1,
             "type": "string",
-            "default": "JsClass",
-            "enum": [
-              "JsClass",
-              "JsFun",
-              "TsClass",
-              "TsFun"
-            ],
-            "markdownDescription": "`Taro`代码助手遵循语法",
-            "enumDescriptions": [
-              "遵循“Js+类”组件语法",
-              "遵循“Js+函数式”组件语法",
-              "遵循“Ts+类”组件语法",
-              "遵循“Ts+函数式”组件语法"
-            ]
+            "default": "https://gitee.com/gengjian1203/code-template.git",
+            "markdownDescription": "代码仓库url"
           },
-          "code-maker.taro.cssGrammar": {
+          "code-maker.config.gitTemplatePath": {
+            "order": 2,
             "type": "string",
-            "default": "camel",
-            "enum": [
-              "camel",
-              "kebab"
-            ],
-            "markdownDescription": "`Taro`代码助手CSS命名语法",
-            "enumDescriptions": [
-              "小驼峰命名法",
-              "短横杠命名法"
-            ]
+            "default": "templates",
+            "markdownDescription": "代码仓库模板路径"
           },
-          "code-maker.taro.cssType": {
+          "code-maker.config.localTemplatePath": {
+            "order": 3,
             "type": "string",
-            "default": "less",
-            "enum": [
-              "less",
-              "css",
-              "sass",
-              "scss"
-            ],
-            "markdownDescription": "`Taro`代码助手CSS预处理器",
-            "enumDescriptions": [
-              "less",
-              "css",
-              "sass",
-              "scss"
-            ]
+            "default": "tpl",
+            "markdownDescription": "本地存放模板路径"
           }
         }
       }
     ]
   },
+  "permissions": [
+    "git"
+  ],
   "scripts": {
     "vscode:prepublish": "npm run package",
     "compile": "webpack --devtool nosources-source-map --config ./build/node-extension.webpack.config.js",
     "watch": "webpack --watch --devtool nosources-source-map --info-verbosity verbose --config ./build/node-extension.webpack.config.js",
     "package": "webpack --mode production --config ./build/node-extension.webpack.config.js",
+    "vsce": "vsce package",
     "test-compile": "tsc -p ./",
     "test-watch": "tsc -watch -p ./",
     "pretest": "npm run test-compile && npm run lint",
@@ -227,18 +122,19 @@
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
-    "@types/vscode": "^1.51.0",
     "@types/glob": "^7.1.3",
     "@types/mocha": "^8.0.0",
     "@types/node": "^12.11.7",
-    "eslint": "^7.9.0",
+    "@types/vscode": "^1.51.0",
     "@typescript-eslint/eslint-plugin": "^4.1.1",
     "@typescript-eslint/parser": "^4.1.1",
+    "eslint": "^7.9.0",
     "glob": "^7.1.6",
     "mocha": "^8.1.3",
-    "typescript": "^4.0.2",
-    "vscode-test": "^1.4.0",
     "ts-loader": "^8.0.3",
+    "typescript": "^4.0.2",
+    "vsce": "^2.15.0",
+    "vscode-test": "^1.4.0",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12"
   },
