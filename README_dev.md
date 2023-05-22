@@ -47,7 +47,7 @@ tree -L 3 -I "node_modules|dist|build|out" > tree.md
 > 打包发布
 
 ```bash
-vsce publish 1.3.0
+vsce publish 2.0.0
 ```
 
 **Enjoy!**
