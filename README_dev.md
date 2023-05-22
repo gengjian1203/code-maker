@@ -29,3 +29,25 @@ npm run vsce
 5. 发布
 
 参考官方文档
+
+> 输出项目结构
+
+```bash
+tree -L 3 -I "node_modules|dist|build|out" > tree.md
+```
+
+> 令牌失效
+
+```bash
+1. vsce login username
+2. Y
+3. Input Personal Access Tokens
+```
+
+> 打包发布
+
+```bash
+vsce publish 1.3.0
+```
+
+**Enjoy!**
