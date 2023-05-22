@@ -36,12 +36,22 @@ npm run vsce
 tree -L 3 -I "node_modules|dist|build|out" > tree.md
 ```
 
+> 安装工具
+
+```bash
+npm install -g vsce
+```
+
 > 令牌失效
 
 ```bash
 1. vsce login username
 2. Y
 3. Input Personal Access Tokens
+
+https://marketplace.visualstudio.com/manage/publishers/
+
+https://dev.azure.com/gengjian1203/_usersSettings/tokens
 ```
 
 > 打包发布
