@@ -2,8 +2,26 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
 import commands from "./command";
+import sidebar from "./sidebar";
 
-// 初始化插件
+// 初始化侧边栏
+const initSidebar = async (context: vscode.ExtensionContext) => {
+  const pathHtmlNpmManager = "./src/webview/npm-manager/index.html";
+  const sidebarWebViewNpmManager = new sidebar.SidebarProviderWebview(
+    context,
+    pathHtmlNpmManager
+  );
+  context.subscriptions.push(
+    vscode.window.registerWebviewViewProvider(
+      "coder-maker-npm-manager",
+      sidebarWebViewNpmManager
+    )
+  );
+
+  console.log("initSidebar done.");
+};
+
+// 初始化注册事件
 const initExtension = async (context: vscode.ExtensionContext) => {
   // 当打开编辑器触发事件
   const handleDidOpenTextDocument = vscode.workspace.onDidOpenTextDocument(
@@ -28,7 +46,10 @@ export function activate(context: vscode.ExtensionContext) {
   console.log('Congratulations, your extension "code-maker" is now active!');
   // vscode.window.showInformationMessage("Hello World from code-maker!");
 
-  // init
+  // 初始化侧边栏
+  initSidebar(context);
+
+  // 初始化注册事件
   initExtension(context);
 
   // The command has been defined in the package.json file

@@ -87,11 +87,14 @@
     "views": {
       "coder-maker-sidebar": [
         {
-          "id": "coder-maker-tool",
-          "name": "模块"
+          "type": "webview",
+          "id": "coder-maker-npm-manager",
+          "name": "npm包管理情况",
+          "icon": "./images/icon.svg",
+          "contextualTitle": "npm包管理情况"
         },
         {
-          "id": "coder-maker-tool-bk",
+          "id": "coder-maker-bk",
           "name": "模块备份"
         }
       ]
