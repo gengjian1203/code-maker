@@ -16,6 +16,8 @@ const initExtension = async (context: vscode.ExtensionContext) => {
   );
 
   context.subscriptions.push(handleDidOpenTextDocument);
+
+  console.log("initExtension done.");
 };
 
 // this method is called when your extension is activated

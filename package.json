@@ -6,8 +6,7 @@
     "code",
     "maker",
     "helper",
-    "plugin",
-    "taro"
+    "plugin"
   ],
   "version": "2.0.0",
   "publisher": "gengjian1203",
@@ -23,6 +22,7 @@
     "url": "https://github.com/gengjian1203/code-maker"
   },
   "activationEvents": [
+    "onStartupFinished",
     "onCommand:code-maker.base.CloneTemplate",
     "onCommand:code-maker.base.QuickOpenFolder",
     "onCommand:code-maker.base.OpenTemplate"
@@ -42,7 +42,7 @@
       },
       {
         "command": "code-maker.base.QuickOpenFolder",
-        "title": "🎯 快速打开工作区"
+        "title": "🎯 快速打开目录"
       },
       {
         "command": "code-maker.base.OpenTemplate",
@@ -76,9 +76,27 @@
       "editor/title/context": []
     },
     "viewsContainers": {
-      "activitybar": []
+      "activitybar": [
+        {
+          "id": "coder-maker-sidebar",
+          "title": "Code Maker",
+          "icon": "./images/icon.svg"
+        }
+      ]
     },
-    "views": {},
+    "views": {
+      "coder-maker-sidebar": [
+        {
+          "id": "coder-maker-tool",
+          "name": "模块"
+        },
+        {
+          "id": "coder-maker-tool-bk",
+          "name": "模块备份"
+        }
+      ]
+    },
+    "webviews": [],
     "configuration": [
       {
         "type": "object",
@@ -88,13 +106,13 @@
             "order": 1,
             "type": "string",
             "default": "https://gitee.com/gengjian1203/code-template.git",
-            "markdownDescription": "代码仓库url"
+            "markdownDescription": "模板代码仓库url"
           },
           "code-maker.config.gitTemplatePath": {
             "order": 2,
             "type": "string",
             "default": "templates",
-            "markdownDescription": "代码仓库模板路径"
+            "markdownDescription": "模板代码仓库模板路径"
           },
           "code-maker.config.localTemplatePath": {
             "order": 3,
@@ -110,11 +128,11 @@
     "git"
   ],
   "scripts": {
+    "dev": "webpack --watch --devtool nosources-source-map --info-verbosity verbose --config ./build/node-extension.webpack.config.js",
+    "vsce": "vsce package",
     "vscode:prepublish": "npm run package",
     "compile": "webpack --devtool nosources-source-map --config ./build/node-extension.webpack.config.js",
-    "watch": "webpack --watch --devtool nosources-source-map --info-verbosity verbose --config ./build/node-extension.webpack.config.js",
     "package": "webpack --mode production --config ./build/node-extension.webpack.config.js",
-    "vsce": "vsce package",
     "test-compile": "tsc -p ./",
     "test-watch": "tsc -watch -p ./",
     "pretest": "npm run test-compile && npm run lint",
