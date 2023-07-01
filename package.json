@@ -24,8 +24,9 @@
   "activationEvents": [
     "onStartupFinished",
     "onCommand:code-maker.base.CloneTemplate",
+    "onCommand:code-maker.base.OpenTemplate",
     "onCommand:code-maker.base.QuickOpenFolder",
-    "onCommand:code-maker.base.OpenTemplate"
+    "onCommand:code-maker.base.ZZZTest"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -51,6 +52,10 @@
           "light": "./images/icon.svg",
           "dark": "./images/icon.svg"
         }
+      },
+      {
+        "command": "code-maker.base.ZZZTest",
+        "title": "Code Maker 测试代码"
       }
     ],
     "menus": {

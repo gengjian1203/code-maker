@@ -6,9 +6,9 @@ export default (context: vscode.ExtensionContext) => {
     "code-maker.base.OpenTemplate",
     (res) => {
       // The code you place here will be executed every time your command is executed
-      const { localTEMPLATEPath } = getTemplatePath(context);
+      const { localTPLPath } = getTemplatePath(context);
 
-      const uri = vscode.Uri.file(localTEMPLATEPath);
+      const uri = vscode.Uri.file(localTPLPath);
       vscode.commands.executeCommand("vscode.openFolder", uri, true);
     }
   );

@@ -1,10 +1,9 @@
 import * as vscode from "vscode";
-import { execSync } from "child_process";
 import createDirectory from "./createDirectory";
 import getTemplatePath from "./getTemplatePath";
+import GitManager from "../utilsManager/GitManager";
 
 const fs = require("fs");
-const path = require("path");
 
 /**
  * 更新本地的模板代码
@@ -31,51 +30,27 @@ const updateTemplateCode = async (context: vscode.ExtensionContext) => {
 
   // 判断是否存在模板，如果存在就pull，如果不存在就clone
   if (fs.existsSync(localREPOPath)) {
-    try {
-      const cmdGitPull = `git pull`;
-      const resGitPull = execSync(cmdGitPull, {
-        stdio: "pipe", //
-        encoding: "utf-8",
-        cwd: localREPOPath,
-      });
-      vscode.window.showInformationMessage(`模板仓库更新成功`);
-    } catch (e) {
-      const strE = JSON.stringify(e);
-      if (strE.includes("Abort")) {
-        const cmdGitPullForce = `git reset --hard origin/$(git rev-parse --abbrev-ref HEAD) && git pull origin $(git rev-parse --abbrev-ref HEAD) --force`;
-        try {
-          const resGitPullForce = execSync(cmdGitPullForce, {
-            stdio: "pipe", //
-            encoding: "utf-8",
-            cwd: localREPOPath,
-          });
-          vscode.window.showInformationMessage(`模板仓库强制更新成功`);
-        } catch (eForce) {
-          vscode.window.showInformationMessage(
-            `模板仓库强制更新失败${JSON.stringify(e)}`
-          );
-        }
-      } else {
-        vscode.window.showInformationMessage(
-          `模板仓库更新失败${JSON.stringify(e)}`
-        );
-      }
-
-      // git pull origin <branch-name> --force
+    const optionsGitPull = {
+      path: localTPLPath,
+    };
+    const resGitPull = await GitManager.pull(optionsGitPull);
+    const { res, msg } = resGitPull;
+    if (res) {
+      vscode.window.showInformationMessage(`模板仓库克隆成功`);
+    } else {
+      vscode.window.showErrorMessage(msg);
     }
   } else {
-    try {
-      const cmdGitClone = `git clone ${gitTemplateUrl}`;
-      const resGitClone = execSync(cmdGitClone, {
-        stdio: "pipe", //
-        encoding: "utf-8",
-        cwd: localTPLPath,
-      });
+    const optionsGitClone = {
+      path: localTPLPath,
+      url: gitTemplateUrl,
+    };
+    const resGitClone = await GitManager.clone(optionsGitClone);
+    const { res, msg } = resGitClone;
+    if (res) {
       vscode.window.showInformationMessage(`模板仓库克隆成功`);
-    } catch (e) {
-      vscode.window.showInformationMessage(
-        `模板仓库克隆失败${JSON.stringify(e)}`
-      );
+    } else {
+      vscode.window.showErrorMessage(msg);
     }
   }
 };
