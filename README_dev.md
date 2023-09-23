@@ -11,7 +11,7 @@ npm i
 2. 生成 dist 目录，并且实现热更新
 
 ```
-npm run watch
+npm run dev
 ```
 
 3. 进行调试

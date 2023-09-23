@@ -8,7 +8,7 @@
     "helper",
     "plugin"
   ],
-  "version": "2.0.0",
+  "version": "2.1.0",
   "publisher": "gengjian1203",
   "icon": "images/icon.png",
   "engines": {
@@ -22,11 +22,7 @@
     "url": "https://github.com/gengjian1203/code-maker"
   },
   "activationEvents": [
-    "onStartupFinished",
-    "onCommand:code-maker.base.CloneTemplate",
-    "onCommand:code-maker.base.OpenTemplate",
-    "onCommand:code-maker.base.QuickOpenFolder",
-    "onCommand:code-maker.base.ZZZTest"
+    "onStartupFinished"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -44,6 +40,11 @@
       {
         "command": "code-maker.base.QuickOpenFolder",
         "title": "🎯 快速打开目录"
+      },
+      {
+        "command": "code-maker.base.ReviewAsset",
+        "title": "🔍️ 检查资源情况",
+        "when": "explorerResourceIsFolder == true"
       },
       {
         "command": "code-maker.base.OpenTemplate",
@@ -67,6 +68,11 @@
         {
           "command": "code-maker.base.QuickOpenFolder",
           "group": "navigation@2",
+          "when": "explorerResourceIsFolder == true"
+        },
+        {
+          "command": "code-maker.base.ReviewAsset",
+          "group": "navigation@3",
           "when": "explorerResourceIsFolder == true"
         }
       ],
@@ -127,6 +133,12 @@
             "type": "string",
             "default": "tpl",
             "markdownDescription": "本地存放模板路径"
+          },
+          "code-maker.reviewAsset.assetExtensions": {
+            "order": 4,
+            "type": "string",
+            "default": ".jpeg|.jpg|.png|.gif|.bmp|.tiff|.tif|.ttf|.ttc|.otf|.woff|.woff2|.eot|.fon|.font|.svg",
+            "markdownDescription": "需要检验资源的拓展名列表"
           }
         }
       }
