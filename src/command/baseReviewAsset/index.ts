@@ -67,7 +67,7 @@ export default (context: vscode.ExtensionContext) => {
         },
         (progress, token) => {
           const timeStart = new Date().getTime();
-          progress.report({ increment: 0 });
+          // progress.report({ increment: 0 });
           token.onCancellationRequested(() => {
             // 用户点击取消按钮时触发
             console.log("Progress canceled by user");
@@ -75,15 +75,15 @@ export default (context: vscode.ExtensionContext) => {
           });
 
           return new Promise<void>((resolve, reject) => {
-            const timer = setInterval(() => {
-              const timeProcess = Math.floor(
-                (new Date().getTime() - timeStart) / 1000
-              );
-              progress.report({
-                increment: 1,
-                message: `检查中...耗时: ${timeProcess}s`,
-              });
-            }, 1000);
+            // const timer = setInterval(() => {
+            //   const timeProcess = Math.floor(
+            //     (new Date().getTime() - timeStart) / 1000
+            //   );
+            //   progress.report({
+            //     increment: 1,
+            //     message: `检查中...耗时: ${timeProcess}s`,
+            //   });
+            // }, 1000);
 
             // 项目中所有资源文件列表
             const assetInfoList: any[] = [];
@@ -137,9 +137,13 @@ export default (context: vscode.ExtensionContext) => {
               });
             }
 
+            let assetInfoListSize = 0;
+            let assetInfoListUnusedSize = 0;
             const assetInfoListUnused = assetInfoList.filter((item) => {
+              assetInfoListSize += item.fileSize;
               return !item?.fileUse;
             }).map((item) => {
+              assetInfoListUnusedSize += item.fileSize;
               return item.filePath;
             });
 
@@ -150,8 +154,8 @@ export default (context: vscode.ExtensionContext) => {
                 content: JSON.stringify({
                   info: {
                     tip1: `匹配资源规则: ${assetExtensionsList.join('|')} `,
-                    tip2: `匹配资源文件(assetInfoList): 共 ${assetInfoList.length} 个 `,
-                    tip3: `未引用资源文件(assetInfoListUnused): 共 ${assetInfoListUnused.length} 个 `,
+                    tip2: `匹配资源文件(assetInfoList): 共 ${assetInfoList.length} 个, 总体积为: ${(assetInfoListSize / (1024 * 1024)).toFixed(2)}MB `,
+                    tip3: `未引用资源文件(assetInfoListUnused): 共 ${assetInfoListUnused.length} 个, 总体积为: ${(assetInfoListUnusedSize / (1024 * 1024)).toFixed(2)}MB `,
                     tip4: `耗时: 共 ${timeProcess} s `,
                     assetInfoListUnused,
                     assetInfoList,
@@ -161,7 +165,7 @@ export default (context: vscode.ExtensionContext) => {
               .then((document) => {
                 vscode.window.showTextDocument(document);
                 vscode.window.showInformationMessage(
-                  `共找到${assetInfoListUnused.length}个文件, 耗时${timeProcess}s`
+                  `找到未引用资源文件: 共 ${assetInfoListUnused.length} 个, 总体积为: ${(assetInfoListUnusedSize / (1024 * 1024)).toFixed(2)}MB, 耗时 ${timeProcess} s`
                 );
               });
 
@@ -181,7 +185,7 @@ export default (context: vscode.ExtensionContext) => {
             //   );
             // });
 
-            clearInterval(timer);
+            // clearInterval(timer);
             resolve();
           });
         }
