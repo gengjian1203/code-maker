@@ -22,7 +22,11 @@ const traverseDirectory = (
   };
 
   while (stack.length > 0 && !shouldBreak) {
+    // console.log('stack', JSON.stringify(stack));
     const currentDir = stack.pop();
+    if (currentDir && (currentDir.includes('node_modules') || currentDir.includes('/.'))) {
+      continue;
+    }
     const files = fs.readdirSync(currentDir);
 
     for (let i = 0; i < files.length && !shouldBreak; i++) {
@@ -62,6 +66,7 @@ export default (context: vscode.ExtensionContext) => {
           cancellable: true,
         },
         (progress, token) => {
+          const timeStart = new Date().getTime();
           progress.report({ increment: 0 });
           token.onCancellationRequested(() => {
             // 用户点击取消按钮时触发
@@ -69,7 +74,6 @@ export default (context: vscode.ExtensionContext) => {
             disposable.dispose(); // 停止进度条
           });
 
-          let timeStart = new Date().getTime();
           return new Promise<void>((resolve, reject) => {
             const timer = setInterval(() => {
               const timeProcess = Math.floor(
