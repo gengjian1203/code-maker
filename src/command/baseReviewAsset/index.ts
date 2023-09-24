@@ -6,7 +6,7 @@ interface IFileInfoType {
   filePath: string;
   fileExtension: string;
   fileSize: number;
-  fileUse?: boolean; // 该资源被哪个文件使用了
+  fileUse?: string[]; // 该资源被哪个文件使用了
 }
 
 // 递归遍历指定路径下的所有文件
@@ -102,15 +102,15 @@ export default (context: vscode.ExtensionContext) => {
 
               // 遍历项目中所有文件, 查找未使用的资源
               traverseDirectory(path, (fileInfo, fnBreak) => {
-                // 如果没有未使用的资源, 则停止遍历
-                const isAllUsed = assetInfoList.every((item) => {
-                  return item?.fileUse;
-                });
-                if (isAllUsed) {
-                  console.log('fnBreakfnBreakfnBreak');
-                  fnBreak();
-                  return;
-                }
+                // 如果没有未使用的资源, 则停止遍历 改为拿到资源的所有引用文件
+                // const isAllUsed = assetInfoList.every((item) => {
+                //   return item?.fileUse;
+                // });
+                // if (isAllUsed) {
+                //   console.log('fnBreakfnBreakfnBreak');
+                //   fnBreak();
+                //   return;
+                // }
 
                 // 以UTF-8编码同步读取文件内容
                 const { filePath } = fileInfo;
@@ -127,8 +127,12 @@ export default (context: vscode.ExtensionContext) => {
                     for (let i = 0; i < assetInfoList.length; i++) {
                       const assetInfo = assetInfoList[i];
                       const { filePath: filePathUnused, fileUse: fileUseUnused } = assetInfo;
-                      if (!fileUseUnused && filePathUnused.includes(matche)) {
-                        assetInfo.fileUse = filePath;
+                      if (filePathUnused.includes(matche)) {
+                        if (assetInfo.fileUse) {
+                          assetInfo.fileUse.push(filePath);
+                        } else {
+                          assetInfo.fileUse = [filePath];
+                        }
                         break;
                       }
                     }

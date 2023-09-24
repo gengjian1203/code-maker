@@ -1,9 +1,7 @@
 # Code Maker (代码助手)
 
 一款致力于可以快速生成模板代码片段的 VSCode 插件.  
-可通过插件设置页`settings.json`, 搜索`code-maker`, 调整本插件功能开关.
-
-## 一、base
+可通过插件设置页`settings.json`, 搜索`code-maker`, 调整本插件功能的相关配置.
 
 ### 1. 左侧资源管理器
 
