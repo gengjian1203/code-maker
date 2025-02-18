@@ -57,7 +57,9 @@ export function activate(context: vscode.ExtensionContext) {
   // The commandId parameter must match the command field in package.json
 
   // 注册命令
+  console.log(`initCommands ${commands} start.`);
   for (let key in commands) {
+    console.log(`initCommands ${key} done.`);
     context.subscriptions.push(commands[key](context));
   }
 }

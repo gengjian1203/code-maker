@@ -55,7 +55,11 @@
         }
       },
       {
-        "command": "code-maker.base.ZZZTest",
+        "command": "code-maker.editor.InjectTestId",
+        "title": "💉 注入testId"
+      },
+      {
+        "command": "code-maker.zzz.DemoTest",
         "title": "Code Maker 测试代码"
       }
     ],
@@ -178,6 +182,8 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "domhandler": "^5.0.3",
+    "htmlparser2": "^10.0.0",
     "inquirer": "^7.3.3"
   }
 }
