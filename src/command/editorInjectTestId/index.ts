@@ -30,9 +30,7 @@ const addDataTestId = (element: Element) => {
     !element.attribs["data-testid"] &&
     injectTagsList.includes(element.tagName)
   ) {
-    element.attribs["data-testid"] = `${element.tagName}-${
-      element.attribs["name"] || "default"
-    }`;
+    element.attribs["data-testid"] = `${element.tagName}-[test-id-name]`;
   }
 
   if (element.children) {
