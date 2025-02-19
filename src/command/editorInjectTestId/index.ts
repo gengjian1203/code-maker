@@ -2,19 +2,35 @@ import * as vscode from "vscode";
 import { parseDocument } from "htmlparser2";
 import { Element } from "domhandler";
 import * as fs from "fs";
+// import serializer from "dom-serializer";
 
-const hasEqualInAttribs = (element: Element): boolean => {
-  // 检查当前元素的attribs对象
-  if (element.attribs) {
-    // 如果attribs中有任何属性值不是undefined，说明存在等号
-    return Object.values(element.attribs).some((value) => value !== undefined);
-  }
-  return false;
-};
+const injectTagsList = ["div"];
+const selfClosingTagsList = [
+  "img",
+  "br",
+  "hr",
+  "input",
+  "meta",
+  "link",
+  "area",
+  "base",
+  "col",
+  "command",
+  "embed",
+  "keygen",
+  "param",
+  "source",
+  "track",
+  "wbr",
+];
+const explicitAttrsList = ["alt", "title", "nzErrorTip", "nzValue"];
 
 const addDataTestId = (element: Element) => {
-  if (element.tagName === "div") {
-    element.attribs["data-testid"] = `div-${
+  if (
+    !element.attribs["data-testid"] &&
+    injectTagsList.includes(element.tagName)
+  ) {
+    element.attribs["data-testid"] = `${element.tagName}-${
       element.attribs["name"] || "default"
     }`;
   }
@@ -41,10 +57,8 @@ const render = (dom: any) => {
       // 处理属性
       let attrs = Object.entries(node.attribs || {})
         .map(([key, value]) => {
-          console.log("2222", key, value, typeof value);
-
           // TODO: 如果为空字符，未必是只有key没有value，临时如此处理
-          if (value === "") {
+          if (!explicitAttrsList.includes(key) && value === "") {
             return `${key}`;
           }
           // 保持原有的属性值,包括空字符串
@@ -54,14 +68,8 @@ const render = (dom: any) => {
 
       attrs = !!attrs ? ` ${attrs}` : ``;
 
-      // 如果是自闭合标签或只包含空白文本的标签
-      if (
-        !node.children ||
-        // node.children.length === 0 || 如果是0反而不能是自闭合
-        (node.children.length === 1 &&
-          node.children[0].type === "text" &&
-          /^\s*$/.test(node.children[0].data))
-      ) {
+      // 如果是自闭合标签
+      if (node.selfClosing || selfClosingTagsList.includes(node.name)) {
         return `<${node.name}${attrs}/>`;
       }
 
@@ -117,6 +125,10 @@ export default (context: vscode.ExtensionContext) => {
 
       // 使用render()方法将DOM转换为HTML字符串
       const updatedHtml = render(dom);
+      // const updatedHtml = serializer(dom, {
+      //   emptyAttrs: false,
+      //   decodeEntities: false,
+      // });
 
       fs.writeFileSync(document.uri.fsPath, updatedHtml, "utf8");
       vscode.window.showInformationMessage(
