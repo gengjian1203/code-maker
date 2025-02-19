@@ -143,6 +143,24 @@
             "type": "string",
             "default": ".jpeg|.jpg|.png|.gif|.bmp|.tiff|.tif|.ttf|.ttc|.otf|.woff|.woff2|.eot|.fon|.font|.svg",
             "markdownDescription": "需要检验资源的拓展名列表"
+          },
+          "code-maker.injectTestId.injectTags": {
+            "order": 101,
+            "type": "string",
+            "default": "div|em",
+            "markdownDescription": "注入TestId所操作的标签"
+          },
+          "code-maker.injectTestId.selfClosingTags": {
+            "order": 102,
+            "type": "string",
+            "default": "img|br|hr|input|meta|link|area|base|col|command|embed|keygen|param|source|track|wbr",
+            "markdownDescription": "注入TestId需要强制自闭合的标签"
+          },
+          "code-maker.injectTestId.explicitAttrs": {
+            "order": 103,
+            "type": "string",
+            "default": "alt|title|nzErrorTip|nzValue",
+            "markdownDescription": "注入TestId需要显式展示的标签属性"
           }
         }
       }
